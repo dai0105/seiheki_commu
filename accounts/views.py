@@ -18,6 +18,7 @@ from django.contrib.auth.hashers import make_password
 
 
 
+
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
@@ -157,7 +158,8 @@ def profile_setup(request):
     return render(request, 'accounts/profile_setup.html')
 
 
-stripe.api_key = "sk_test_51T5qmPPfF0XDfrqCG0iHO3FTIjmha4uG81OkD83Fyr3cSSwfPeB3k2CwxLiF90XbcZerrDrE4KbFJAwhq0NA6g0V002mxKAt9r"
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -266,7 +268,8 @@ def account_delete_confirm(request):
 
 
 
-stripe.api_key = "sk_test_51T5qmPPfF0XDfrqCG0iHO3FTIjmha4uG81OkD83Fyr3cSSwfPeB3k2CwxLiF90XbcZerrDrE4KbFJAwhq0NA6g0V002mxKAt9r"
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
 
 @login_required
 def account_delete(request):
