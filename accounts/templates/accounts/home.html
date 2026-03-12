@@ -1,0 +1,11 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/timeline.css' %}">
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+<h2>ログイン完了！</h2>
+<p>ここがコミュニティのトップページになります。</p>
+
+<a href="/accounts/profile/{{ request.user.id }}/" class="dm-button">プロフィールを見る</a>
+<a href="{% url 'dm_list' %}" class="dm-button">DM一覧</a>
+
+{% include 'community_app/room_list.html' %}

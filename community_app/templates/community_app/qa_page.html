@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/timeline.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="qa-container">
+
+    <h2 class="qa-title">Q&A（よくある質問）</h2>
+
+
+    <!-- ========================= -->
+    <!-- ① アカウント・プロフィール -->
+    <!-- ========================= -->
+    <h3 class="qa-category">アカウント・プロフィール</h3>
+
+    <div class="qa-item">
+        <button class="qa-question-btn">プロフィールは後から変更できますか？</button>
+        <div class="qa-answer-box">
+            <p>はい、プロフィール編集画面からいつでも変更できます。</p>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="qa-question-btn">プロフィール画像に制限はありますか？</button>
+        <div class="qa-answer-box">
+            <p>公序良俗に反する画像は削除される場合があります。</p>
+        </div>
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- ② 投稿・DM -->
+    <!-- ========================= -->
+    <h3 class="qa-category">投稿・DM</h3>
+
+    <div class="qa-item">
+        <button class="qa-question-btn">投稿は誰が見られますか？</button>
+        <div class="qa-answer-box">
+            <p>コミュニティ内のユーザーのみが閲覧できます。</p>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="qa-question-btn">DM は相手に通知されますか？</button>
+        <div class="qa-answer-box">
+            <p>はい、メッセージを送ると相手に通知されます。</p>
+        </div>
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- ③ 決済・サブスク（Stripe） -->
+    <!-- ========================= -->
+    <h3 class="qa-category">決済・サブスク（Stripe）</h3>
+
+    <div class="qa-item">
+        <button class="qa-question-btn">決済方法は何が使えますか？</button>
+        <div class="qa-answer-box">
+            <p>クレジットカード（Visa / MasterCard / AMEX）が利用できます。</p>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="qa-question-btn">解約後も利用できますか？</button>
+        <div class="qa-answer-box">
+            <p>次回更新日までは利用できます。</p>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="qa-question-btn">請求履歴はどこで確認できますか？</button>
+        <div class="qa-answer-box">
+            <p>「請求管理（Stripe）」から確認できます。</p>
+        </div>
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- ④ セキュリティ・安心 -->
+    <!-- ========================= -->
+    <h3 class="qa-category">セキュリティ・安心</h3>
+
+    <div class="qa-item">
+        <button class="qa-question-btn">他のユーザーに本名やメールアドレスは見られますか？</button>
+        <div class="qa-answer-box">
+            <p>いいえ、公開されません。</p>
+        </div>
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- ⑤ 退会・データ削除 -->
+    <!-- ========================= -->
+    <h3 class="qa-category">退会・データ削除</h3>
+
+    <div class="qa-item">
+        <button class="qa-question-btn">アカウント削除後、データはどうなりますか？</button>
+        <div class="qa-answer-box">
+            <p>完全に削除され、復元はできません。</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- アコーディオン動作 -->
+<script>
+document.querySelectorAll('.qa-question-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const box = btn.nextElementSibling;
+        box.classList.toggle('open');
+    });
+});
+</script>
+
+{% endblock %}

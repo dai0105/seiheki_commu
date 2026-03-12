@@ -1,0 +1,95 @@
+.login-wrapper {
+    width: 350px;
+    margin: 80px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-family: sans-serif;
+}
+
+.login-wrapper h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-wrapper label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.login-wrapper input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.login-wrapper button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+
+/* エラーメッセージ */
+.error-message {
+    color: #ff4d4d;
+    background: #ffecec;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+/* サブスク切れの警告ボックス */
+.expired-box {
+    background: #fff4d9;
+    border: 1px solid #ffd27f;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: left;
+    font-size: 14px;
+    color: #8a6d3b;
+}
+
+/* 再開ボタン */
+.reactivate-btn {
+    display: block;
+    margin-top: 12px;
+    padding: 10px;
+    background: #ff9f43;
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+.reactivate-btn:hover {
+    background: #ff8a1f;
+}
+
+.forgot-link {
+    margin-top: 15px;
+    text-align: right;
+}
+
+.forgot-link a {
+    font-size: 13px;
+    color: #7aa7ff;
+    text-decoration: none;
+}
+
+.forgot-link a:hover {
+    text-decoration: underline;
+}

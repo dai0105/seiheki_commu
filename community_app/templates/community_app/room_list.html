@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/timeline.css' %}">
+{% endblock %}
+
+
+
+{% block content %}
+
+<h2 class="page-title">コミュニティ部屋一覧</h2>
+
+<a href="{% url 'room_create' %}" class="create-room-btn">＋ 新しい部屋を作る</a>
+
+<p class="room-limit">入室中：{{ current_count }} / 5</p>
+
+<div class="filter-area">
+    <a href="{% url 'room_list' %}"
+        class="filter-btn {% if not selected_category and not request.GET.filter %}active{% endif %}">
+        全て
+    </a>
+
+    <a href="{% url 'room_list' %}?filter=joined"
+        class="filter-btn {% if request.GET.filter == 'joined' %}active{% endif %}">
+        入室中
+    </a>
+
+
+    {% for category in categories %}
+        <a href="{% url 'room_list' %}?category={{ category.id }}"
+           class="filter-btn {% if selected_category == category.id|stringformat:'s' %}active{% endif %}">
+            {{ category.name }}
+        </a>
+    {% endfor %}
+</div>
+
+
+<div class="room-list">
+    {% for item in room_status %}
+        {% with room=item.room %}
+            <div class="room-card">
+                <h3>{{ room.name }}</h3>
+                <p class="room-description">{{ room.description }}</p>  <!-- ★追加 -->
+
+                <p>カテゴリ：{{ room.category.name }}</p>
+                <p>人数：{{ room.members.count }} / {{ room.max_members }}</p>
+
+                {% if item.is_member %}
+                    <a href="{% url 'room_detail' room.id %}" class="enter-btn">入室中 → 部屋へ</a>
+                {% else %}
+                    <a href="{% url 'join_room' room.id %}" class="enter-btn">入室する</a>
+                {% endif %}
+            </div>
+        {% endwith %}
+    {% endfor %}
+</div>
+{% endblock %}

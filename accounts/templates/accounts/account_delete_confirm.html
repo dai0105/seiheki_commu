@@ -1,0 +1,18 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/timeline.css' %}">
+
+<div class="delete-container">
+    <div class="delete-title">アカウント削除</div>
+
+    <p class="delete-text">
+        本当にアカウントを削除しますか？<br>
+        この操作は取り消せません。
+    </p>
+
+    <form method="POST" action="{% url 'account_delete' %}">
+        {% csrf_token %}
+        <button type="submit" class="delete-button">削除する</button>
+    </form>
+
+    <a href="{% url 'profile' user.id %}" class="cancel-link">キャンセル</a>
+</div>

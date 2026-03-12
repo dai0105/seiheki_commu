@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <div class="page-content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="{% url 'room_list' %}"
+        class="nav-item {% if request.path == '/community/rooms/' %}active{% endif %}">
+            <span class="icon">🏠</span>
+            <span class="label">ホーム</span>
+        </a>
+
+        <a href="{% url 'dm_list' %}"
+        class="nav-item {% if request.path == '/dm/' %}active{% endif %}">
+            <span class="icon">💬</span>
+            <span class="label">DM</span>
+        </a>
+
+        <a href="{% url 'profile' request.user.id %}"
+        class="nav-item {% if '/accounts/profile/' in request.path %}active{% endif %}">
+            <span class="icon">👤</span>
+            <span class="label">プロフィール</span>
+        </a>
+    </nav>
+
+</body>
+</html>

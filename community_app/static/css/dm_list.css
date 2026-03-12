@@ -1,0 +1,92 @@
+body {
+    background: #fff5fa;
+}
+
+.dm-card {
+    background: #ffe7f2;
+    border: 1px solid #f7c9da;
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+
+.dm-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+}
+
+.default-icon {
+    background: #f7b7d3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: white;
+}
+
+.dm-info {
+    flex: 1;
+}
+
+.dm-name {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+
+.dm-latest {
+    font-size: 14px;
+    color: #555;
+}
+
+
+.dm-time {
+    font-size: 12px;
+    color: #888;
+}
+
+
+.block-btn {
+    background: #F48FB1; /* 優しいピンク */
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.block-btn:hover {
+    background: #EC407A; /* 少し濃いピンク */
+    transform: translateY(-2px);
+}
+
+.block-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.dm-card {
+    display: flex;
+    justify-content: space-between; /* 左右に分ける */
+    align-items: center;
+}
+
+.dm-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* 右寄せ */
+    gap: 6px; /* 日付とボタンの間隔 */
+}

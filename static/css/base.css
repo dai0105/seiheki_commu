@@ -1,0 +1,53 @@
+/* ▼ ページ全体の下にナビが来るので余白を確保 */
+.page-content {
+    padding-bottom: 70px;
+}
+
+/* ▼ 下タブ（統合版） */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 8px 0;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+    z-index: 1000;
+    border-top: none;
+}
+
+/* ▼ タブの基本デザイン */
+.nav-item {
+    text-decoration: none;
+    color: #555;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+    transition: 0.2s;
+}
+
+/* ▼ アイコン */
+.nav-item .icon {
+    font-size: 20px;
+    opacity: 0.6;
+}
+
+/* ▼ active の丸いハイライト */
+.nav-item.active {
+    background: linear-gradient(135deg, #ffeaf4, #ffd3e8);
+    color: #ff69b4;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(255, 105, 180, 0.25);
+}
+
+/* ▼ active のアイコンを強調 */
+.nav-item.active .icon {
+    opacity: 1;
+}

@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ログイン</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+
+<body>
+
+<div class="login-wrapper">
+
+    <h2>ログイン</h2>
+
+    {% if error %}
+        <p class="error-message">{{ error }}</p>
+    {% endif %}
+
+    {% if subscription_expired %}
+        <div class="expired-box">
+            <p>サブスクリプションが終了しています。</p>
+            <p>サービスを再開するには、再度決済が必要です。</p>
+            <a href="{% url 'create_checkout_session' %}" class="reactivate-btn">再開する</a>
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <label>メールアドレス（ユーザー名）</label>
+        <input type="text" name="username">
+
+        <label>パスワード</label>
+        <input type="password" name="password">
+
+        <button type="submit">ログイン</button>
+
+        <div class="forgot-link">
+            <a href="{% url 'password_reset_request' %}">パスワードを忘れた方はこちら</a>
+        </div>
+    </form>
+
+
+</div>
+
+</body>
+</html>

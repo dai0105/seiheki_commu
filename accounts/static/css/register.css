@@ -1,0 +1,51 @@
+.register-wrapper {
+    width: 380px;
+    margin: 80px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-family: sans-serif;
+}
+
+.register-wrapper h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.register-wrapper label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.register-wrapper input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.register-wrapper button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.age-check {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* チェックと文字の間の余白 */
+    margin: 10px 0 15px;
+}
+
+.age-check input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+}

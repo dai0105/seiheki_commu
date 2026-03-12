@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dm_list.css' %}">
+{% endblock %}
+
+
+
+{% block content %}
+    <!-- ここにルーム一覧の内容 -->
+
+
+<div class="dm-list-container">
+
+    <h2 class="dm-title">DM一覧</h2>
+
+    {% for item in room_data %}
+        
+        <a href="{% url 'dm_detail' item.room.id %}" class="dm-card">
+
+            <!-- 左エリア -->
+            <div class="dm-left">
+
+                {% if item.partner.profile.icon %}
+                    <img src="{{ item.partner.profile.icon.url }}" class="dm-icon">
+                {% else %}
+                    <div class="dm-icon default-icon">
+                        {{ item.partner.profile.nickname|first }}
+                    </div>
+                {% endif %}
+
+                <div class="dm-info">
+                    <p class="dm-name">{{ item.partner.profile.nickname }}</p>
+
+                    {% if item.room.latest_message %}
+                        <p class="dm-latest">
+                            {{ item.room.latest_message.content|truncatechars:20 }}
+                        </p>
+                    {% else %}
+                        <p class="dm-latest no-message">まだメッセージはありません</p>
+                    {% endif %}
+                </div>
+
+            </div>
+
+            <!-- 右エリア -->
+            <div class="dm-right">
+
+                {% if item.room.latest_message %}
+                    <div class="dm-time">
+                        {{ item.room.latest_message.created_at|date:"m/d H:i" }}
+                    </div>
+                {% endif %}
+
+                <form action="{% url 'block_user' item.partner.id %}" method="POST">
+                    {% csrf_token %}
+                    <button class="block-btn">ブロック</button>
+                </form>
+
+            </div>
+
+        </a>
+
+    {% empty %}
+        <p class="no-dm">まだDMはありません</p>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

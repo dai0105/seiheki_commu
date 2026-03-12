@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>アカウント作成</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+
+<body>
+
+<div class="register-wrapper">
+
+    <h2>アカウント作成</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p class="age-check">
+            <label>
+                <input type="checkbox" name="age_confirm" required>
+                私は18歳以上です
+            </label>
+        </p>
+        <button type="submit">登録する</button>
+    </form>
+
+</div>
+
+</body>
+</html>

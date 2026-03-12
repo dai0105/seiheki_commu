@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/timeline.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="room-card">
+    <h2>{{ room.name }}</h2>
+    <p>カテゴリ：{{ room.category.name }}</p>
+    <p>人数：{{ room.members.count }} / {{ room.max_members }}</p>   
+    <p class="room-description">{{ room.description }}</p>
+
+    {% if room.created_by == request.user %}
+        <form action="{% url 'room_delete' room.id %}" method="POST"
+              onsubmit="return confirm('本当にこの部屋を削除しますか？');">
+            {% csrf_token %}
+            <button type="submit" class="delete-btn">部屋を削除する</button>
+        </form>
+    {% endif %}
+</div>
+
+<div id="chat-container" class="message-area">
+    {% for msg in messages %}
+        <div class="message-card">
+
+            <div class="message-header">
+                <a href="{% url 'profile' msg.user.id %}">
+                    {% if msg.user.profile.icon %}
+                        <img src="{{ msg.user.profile.icon.url }}" class="message-icon">
+                    {% else %}
+                        <div class="message-icon default-icon">
+                            {{ msg.user.profile.nickname|first }}
+                        </div>
+                    {% endif %}
+                </a>
+
+                <a href="{% url 'profile' msg.user.id %}" class="message-user-name">
+                    {{ msg.user.profile.nickname }}
+                </a>
+            </div>
+
+            <div class="message-content">
+                {% if msg.content %}
+                    <p>{{ msg.content }}</p>
+                {% endif %}
+
+                {% if msg.image %}
+                    <img src="{{ msg.image.url }}" class="room-image">
+                {% endif %}
+
+                {% if msg.video %}
+                    <video src="{{ msg.video.url }}" controls class="room-video"></video>
+                {% endif %}
+            </div>
+
+            <p class="message-time">{{ msg.created_at|date:"H:i" }}</p>
+        </div>
+    {% empty %}
+        <p>まだメッセージはありません。</p>
+    {% endfor %}
+</div>
+
+<div class="message-form">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <textarea name="message" class="input-field" rows="3" placeholder="メッセージを入力..."></textarea>
+
+        <div class="file-wrapper">
+            <input type="file" name="image" accept="image/*">
+        </div>
+
+        <div class="file-wrapper">
+            <input type="file" name="video" accept="video/*">
+        </div>
+
+        <button type="submit" class="create-btn">送信</button>
+    </form>
+</div>
+
+<div class="room-actions">
+    <a href="{% url 'leave_room' room.id %}" class="enter-btn">退室する</a>
+    <a href="{% url 'room_list' %}" class="enter-btn">← 部屋一覧に戻る</a>
+</div>
+
+{% endblock %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const chatContainer = document.getElementById("chat-container");
+    if (chatContainer) {
+        // 画像・動画の高さが確定するまで少し待つ
+        setTimeout(() => {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }, 100);
+    }
+});
+</script>

@@ -1,0 +1,15 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/timeline.css' %}">
+
+<div class="form-container">
+    <h2>お問い合わせ</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="submit-button">送信する</button>
+    </form>
+
+    <a href="{% url 'profile' user.id %}" class="cancel-link">戻る</a>
+</div>

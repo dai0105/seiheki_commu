@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/timeline.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% if request.user.id == user_obj.id %}
+    <a href="{% url 'profile_edit' %}" class="back-btn">プロフィールを編集</a>
+{% endif %}
+
+{% if request.user.id == user_obj.id %}
+    <button id="open-settings" class="settings-btn">⚙ 設定</button>
+{% endif %}
+
+<div class="profile-card">
+
+    <h2 class="profile-name">{{ profile.nickname }}のプロフィール</h2>
+
+    <p>年齢帯: {{ profile.age_range }}</p>
+
+    <p>性別：
+        {% if user.profile.gender == "male" %}
+            男性
+        {% elif user.profile.gender == "female" %}
+            女性
+        {% endif %}
+    </p>
+
+    <p class="profile-bio-title">自己紹介：</p>
+
+    <div class="profile-bio">{{ profile.bio|linebreaksbr }}</div>
+    {% if profile.icon %}
+        <img src="{{ profile.icon.url }}" class="profile-icon">
+    {% else %}
+        <div class="profile-icon default-icon">
+            {{ profile.nickname|first }}
+        </div>
+    {% endif %}
+
+    <p class="profile-tag-title">タグ:</p>
+    <div class="profile-tags">
+        {% for tag in profile.tags.all %}
+            <span class="filter-btn">{{ tag.name }}</span>
+        {% empty %}
+            <span class="no-tags">タグはまだありません</span>
+        {% endfor %}
+    </div>
+
+    {% if request.user.id != user_obj.id %}
+        <a href="{% url 'dm_start' user_obj.id %}" class="dm-button">DMする</a>
+    {% endif %}
+
+    <hr>
+
+    <h3 class="profile-post-title">投稿一覧</h3>
+
+    <div class="profile-post-header">
+        <a href="{% url 'post_create' %}" class="filter-btn">
+            ＋ 新しい投稿
+        </a>
+    </div>
+
+    {% for post in posts %}
+        <div class="post-card-post">
+
+            {% if post.user == request.user %}
+                <a href="{% url 'post_delete' post_id=post.id %}" class="delete-btn">削除</a>
+            {% endif %}
+            <p class="post-content">{{ post.content }}</p>
+            
+            {% if post.image %}
+                <img src="{{ post.image.url }}" class="post-image">
+            {% endif %}
+
+            {% if post.video %}
+                <video src="{{ post.video.url }}" controls class="post-video"></video>
+            {% endif %}
+
+            <div class="post-tags">
+                {% for tag in post.tags.all %}
+                    <span class="tag">{{ tag.name }}</span>
+                {% endfor %}
+            </div>
+
+            <p class="post-time">{{ post.created_at }}</p>
+        </div>
+    {% empty %}
+        <p class="no-posts">まだ投稿がありません</p>
+    {% endfor %}
+</div>
+
+
+
+<div id="settings-menu" class="settings-menu">
+    <h3 class="settings-title">設定</h3>
+
+    <a href="{% url 'qa_page' %}" class="settings-item">Q&A</a>
+    {% if user.profile.gender == 'male' %}
+        <a href="{% url 'billing_portal' %}" class="settings-item">
+            請求管理（Stripe）
+        </a>
+    {% endif %}
+    {% if user.profile.gender == "male" %}
+        <a href="{% url 'cancel_subscription' %}" class="setting-item">
+            解約する
+        </a>
+    {% endif %}
+    <a href="{% url 'account_delete_confirm' %}" class="setting-item">
+        アカウント削除
+    </a>
+    <a href="{% url 'contact' %}" class="settings-item">お問い合わせ</a>
+    <a href="{% url 'terms' %}" class="setting-item">利用規約</a>
+
+    <button id="close-settings" class="close-settings-btn">閉じる</button>
+</div>
+
+<script>
+document.getElementById("open-settings").onclick = function() {
+    document.getElementById("settings-menu").classList.add("open");
+};
+
+document.getElementById("close-settings").onclick = function() {
+    document.getElementById("settings-menu").classList.remove("open");
+};
+</script>
+
+{% endblock %}

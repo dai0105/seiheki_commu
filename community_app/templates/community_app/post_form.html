@@ -1,0 +1,7 @@
+<h2>新しい投稿</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">投稿する</button>
+</form>

@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dm.css' %}">
+{% endblock %}
+
+{% block content %}
+<a href="{% url 'dm_list' %}" class="back-to-list">💬 DM一覧にもどる</a>
+
+<div class="dm-container">
+
+    <div class="dm-header">
+
+        {% if room.user1 == request.user %}
+            {% with partner=room.user2 %}
+                <a href="{% url 'profile' partner.id %}" class="dm-profile-link">
+                    <h2>{{ partner.profile.nickname }}</h2>
+                </a>
+            {% endwith %}
+        {% else %}
+            {% with partner=room.user1 %}
+                <a href="{% url 'profile' partner.id %}" class="dm-profile-link">
+                    <h2>{{ partner.profile.nickname }}</h2>
+                </a>
+            {% endwith %}
+        {% endif %}
+
+    </div>
+    
+    <!-- メッセージ一覧 -->
+    <div class="dm-messages">
+        {% for msg in messages %}
+            <div class="dm-row {% if msg.sender == request.user %}me{% else %}other{% endif %}">
+
+                {# 相手のアイコン #}
+                {% if msg.sender != request.user %}
+                    <a href="{% url 'profile' msg.sender.id %}" class="dm-profile-link">
+                        {% if msg.sender.profile.icon %}
+                            <img src="{{ msg.sender.profile.icon.url }}" class="dm-icon">
+                        {% else %}
+                            <div class="dm-icon default-icon">
+                                {{ msg.sender.profile.nickname|first }}
+                            </div>
+                        {% endif %}
+                    </a>
+                {% endif %}
+
+                <div class="dm-message">
+                    <div class="bubble">
+                        {% if msg.content %}
+                            {{ msg.content|linebreaksbr }}
+                        {% endif %}
+
+                        {% if msg.image %}
+                            <img src="{{ msg.image.url }}" class="dm-image">
+                        {% endif %}
+
+                        {% if msg.video %}
+                            <video src="{{ msg.video.url }}" controls class="dm-video"></video>
+                        {% endif %}
+                    </div>
+                    <div class="time">{{ msg.created_at|date:"H:i" }}</div>
+                </div>
+
+                {# 自分のアイコン #}
+                {% if msg.sender == request.user %}
+                    {% if request.user.profile.icon %}
+                        <img src="{{ request.user.profile.icon.url }}" class="dm-icon me-icon">
+                    {% else %}
+                        <div class="dm-icon default-icon me-icon">
+                            {{ request.user.profile.nickname|first }}
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- 送信フォーム -->
+    <form method="post" enctype="multipart/form-data" class="dm-form">
+        {% csrf_token %}
+        <input type="text" name="message" placeholder="メッセージを入力…" autocomplete="off">
+
+        <input type="file" name="image" accept="image/*">
+        <input type="file" name="video" accept="video/*">
+
+        <button type="submit">送信</button>
+    </form>
+
+</div>
+
+<script>
+    const messages = document.querySelector('.dm-messages');
+    messages.scrollTop = messages.scrollHeight;
+</script>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/timeline.css' %}">
+
+<a href="{% url 'profile' request.user.id %}" class="back-btn">＜ プロフィールへ戻る</a>
+
+<div class="profile-edit-card">
+
+    <h2 class="edit-title">プロフィールを編集</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-fields">
+            {{ form.as_p }}
+        </div>
+
+        <button type="submit" class="submit-btn">保存する</button>
+    </form>
+
+</div>

@@ -1,0 +1,15 @@
+.dm-button {
+    display: inline-block;
+    padding: 12px 20px;
+    background: #f7b7d3;
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 15px;
+}
+
+.dm-button:hover {
+    background: #eaa2c4;
+}

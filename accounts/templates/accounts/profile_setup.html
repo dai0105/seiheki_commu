@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>プロフィール入力</title>
+    <link rel="stylesheet" href="{% static 'css/profile_setup.css' %}">
+</head>
+
+<body>
+
+<div class="profile-setup-wrapper">
+
+    <h2>プロフィール入力</h2>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <label>ニックネーム（必須）</label>
+        <input type="text" name="nickname" required>
+
+        <label>年齢レンジ（必須）</label>
+        <select name="age_range" required>
+            <option value="">選択してください</option>
+            <option value="18-22">18〜22歳</option>
+            <option value="23-27">23〜27歳</option>
+            <option value="28-32">28〜32歳</option>
+            <option value="33-37">33〜37歳</option>
+            <option value="38-42">38〜42歳</option>
+            <option value="43-47">43〜47歳</option>
+            <option value="48-52">48〜52歳</option>
+            <option value="53+">53歳以上</option>
+        </select>
+
+        <button type="submit">保存して進む</button>
+    </form>
+
+</div>
+
+</body>
+</html>

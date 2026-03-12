@@ -1,0 +1,761 @@
+/* =========================================
+   ▼ 全体背景（アプリ全体の世界観）
+   ========================================= */
+
+body {
+    background: #fff5fa; /* やさしい薄ピンク */
+    font-family: "Noto Sans JP", sans-serif;
+}
+
+
+
+/* =========================================
+   ▼ タイムライン（投稿一覧）エリア
+   ========================================= */
+
+/* 投稿カード */
+/* 投稿カード全体 */
+.post-card {
+    background: #ffe6f0;
+    padding: 20px;
+    border-radius: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* タイトル */
+.post-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #000
+}
+
+/* フォーム全体 */
+.post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* テキストエリア */
+.post-form textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #f3b5c8;
+    background: #fff;
+    resize: none;
+    font-size: 14px;
+}
+
+/* ファイル選択 */
+.post-form input[type="file"] {
+    background: #fff;
+    padding: 6px;
+    border-radius: 10px;
+    border: 1px solid #f3b5c8;
+}
+
+/* 投稿ボタン */
+.post-form button {
+    background: #ff69b4;
+    color: white;
+    padding: 10px;
+    border-radius: 12px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.post-form button:hover {
+    opacity: 0.9;
+}
+
+/* 戻るボタン */
+.back-btn {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: #ff69b4;
+    font-weight: bold;
+}
+
+.post-card-post{
+    background: #fff0f7; /* カード用の中ピンク */
+    border: 1px solid #f7c9da; /* 薄いピンクの枠 */
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+
+
+.submit-btn {
+    background: #ff69b4;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: 0.2s;
+}
+
+.submit-btn:hover {
+    background: #ff4fa3;
+    transform: translateY(1px);
+}
+
+.post-user {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.post-content {
+    margin-bottom: 12px;
+    line-height: 1.7;
+}
+
+.form-fields p {
+    background: #fff0f7;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+
+/* タグ */
+.filter-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 6px 12px;
+    background: #F8BBD0;
+    color: white;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.filter-btn:hover {
+    background: #f5a9c4;
+}
+
+.filter-btn.active {
+    background: #C2185B;
+    color: #fff;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    transform: translateY(1px);
+}
+
+.profile-post-header {
+    margin-bottom: 20px;
+}
+
+.filter-area {
+    margin-bottom: 20px;
+}
+
+
+.post-time {
+    color: #999;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+/* 戻るボタン */
+.back-btn {
+    display: inline-block;
+    margin-bottom: 16px;
+    padding: 6px 12px;
+    background: #FDECF2;
+    color: #C2185B;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.back-btn:hover {
+    background: #F8D9E4;
+}
+
+/* 削除ボタン */
+.delete-btn {
+    display: inline-block;
+    background-color: #ff6b6b;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.delete-btn:hover {
+    background-color: #ff4b4b;
+}
+
+
+
+/* =========================================
+   ▼ プロフィール
+   ========================================= */
+
+.profile-card {
+    background: #ffe7f2;
+    border: 1px solid #f7c9da;
+    border-radius: 16px;
+    padding: 24px;
+    margin: 0 auto;
+    max-width: 480px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    margin-top: 20px;
+    margin-bottom: 20px; /* ← ここで余白を作る */
+
+}
+
+.profile-edit-card {
+    background: #ffe7f2;
+    border: 1px solid #f7c9da;
+    border-radius: 16px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+.profile-edit-card input:not([type="checkbox"]),
+.profile-edit-card textarea,
+.profile-edit-card select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #f7c9da;
+    background: #fff0f7;
+    margin-top: 6px;
+    margin-bottom: 12px;
+}
+
+
+.profile-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: #C2185B;
+    margin-bottom: 4px;
+}
+
+.profile-age,
+.profile-gender {
+    color: #777;
+    margin-bottom: 12px;
+}
+
+.profile-bio {
+    line-height: 1.8;
+    white-space: pre-line;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.profile-icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 16px;
+}
+
+.default-icon {
+    background: #F8BBD0;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.tag {
+    display: inline-block;
+    background: #f7c9da;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    margin-right: 6px;
+    margin-bottom: 4px;
+}
+
+
+
+
+/* =========================================
+   ▼ ルーム一覧
+   ========================================= */
+
+.room-card {
+    background: #ffe7f2;
+    border: 1px solid #f7c9da;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+.room-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #C2185B;
+}
+
+.room-category,
+.room-members {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 4px;
+}
+
+.enter-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 6px 12px;
+    background: #F8BBD0;
+    color: white;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.create-room-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 6px 12px;
+    background: #F8BBD0;
+    color: white;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* =========================================
+   ▼ ルーム詳細（メッセージ）
+   ========================================= */
+
+/* ルームヘッダー */
+.room-header {
+    background: #ffe7f2;
+    border: 1px solid #f7c9da;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+}
+
+.room-header h2 {
+    color: #C2185B;
+    margin-bottom: 6px;
+}
+
+.room-header p {
+    margin: 4px 0;
+    color: #555;
+}
+
+
+
+/* メッセージカード */
+.message-card {
+    background: #ffe7f2;
+    border: 1px solid #f7c9da;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+/* ヘッダー（アイコン＋名前） */
+.message-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.message-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+}
+
+.message-user-name {
+    font-weight: bold;
+    color: #444;
+    text-decoration: none;
+}
+
+.message-area{
+    height: calc(100vh - 260px); /* 必要に応じて調整 */
+    overflow-y: auto;
+    display: block; /* ← flex だと scrollTop が効かない */
+}
+
+
+/* テキスト部分 */
+.message-content p {
+    margin: 6px 0;
+    line-height: 1.5;
+    color: #333;
+}
+
+
+
+/* 画像 */
+.room-image {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-top: 8px;
+    display: block;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+
+
+/* 動画 */
+.room-video {
+    width: 100%;
+    max-height: 260px;
+    border-radius: 10px;
+    margin-top: 8px;
+    display: block;
+    background: #000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+
+
+/* 時間 */
+.message-time {
+    text-align: right;
+    font-size: 12px;
+    color: #888;
+    margin-top: 4px;
+}
+
+
+
+/* メッセージ入力フォーム */
+.message-form {
+    margin-top: 20px;
+}
+
+.message-form form {
+    display: flex;
+    padding: 10px;
+    background: white;
+    border-top: 1px solid #f0dce6;
+    flex-direction: column;  /* ← これで縦並びになる */
+    gap: 12px;
+}
+
+.input-field {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    resize: none;
+    font-size: 14px;
+}
+
+/* file input 用ラッパー */
+.file-wrapper {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    background: #fff;
+}
+
+.create-btn {
+    background: #ff69b4;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.create-btn:hover {
+    background: #ff4fa3;
+}
+
+
+
+/* base.css のフォーム上書きを無効化 */
+.message-form textarea,
+.message-form input,
+.message-form button {
+    box-sizing: border-box;
+}
+
+.post-image {
+    max-width: 100%;
+    border-radius: 12px;
+    margin-top: 8px;
+}
+
+.post-video {
+    max-width: 100%;
+    border-radius: 12px;
+    margin-top: 8px;
+}
+
+/* 設定ボタン */
+.settings-btn {
+    float: right;
+    margin: 10px;
+    padding: 8px 14px;
+    background: #ffb6c1;
+    border-radius: 8px;
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+
+/* スライドメニュー本体 */
+.settings-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    height: 100vh;
+    background: #fff;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+    padding: 20px;
+    transition: right 0.3s ease;
+    z-index: 9999;
+}
+
+/* 開いた状態 */
+.settings-menu.open {
+    right: 0;
+}
+
+/* メニュー内の項目 */
+.settings-item {
+    display: block;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 16px;
+    color: #333;
+}
+
+/* 閉じるボタン */
+.close-settings-btn {
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
+    background: #ddd;
+    border: none;
+    border-radius: 8px;
+}
+
+.qa-container {
+    padding: 20px;
+}
+
+.qa-title {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.qa-item {
+    background: #fff0f5;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.qa-question {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.qa-answer {
+    line-height: 1.6;
+}
+
+.qa-category {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    color: #ff6f91;
+}
+
+.qa-question-btn {
+    width: 100%;
+    text-align: left;
+    padding: 12px;
+    background: #ffe4ec;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.qa-answer-box {
+    max-height: 0;
+    overflow: hidden;
+    background: #fff0f5;
+    border-radius: 8px;
+    padding: 0 12px;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.qa-answer-box.open {
+    max-height: 200px;
+    padding: 12px;
+}
+
+.qa-answer-box p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.setting-item {
+    display: block;
+    margin-bottom: 12px;  /* ← これだけで離れる */
+}
+
+.delete-container {
+    max-width: 360px;
+    margin: 40px auto;
+    padding: 24px;
+    background: #fff5f5;
+    border: 1px solid #ffcccc;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.delete-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #d9534f;
+    margin-bottom: 16px;
+}
+
+.delete-text {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+.delete-button {
+    display: block;
+    width: 100%;
+    padding: 12px 0;
+    background: #d9534f;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.delete-button:hover {
+    background: #c9302c;
+}
+
+.cancel-link {
+    display: block;
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+}
+
+.cancel-link:hover {
+    text-decoration: underline;
+}
+
+.form-container {
+    max-width: 360px;
+    margin: 40px auto;
+    padding: 24px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+
+.submit-button {
+    display: block;
+    width: 100%;
+    padding: 12px 0;
+    background: #4a90e2;
+    color: white;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 16px;
+}
+
+.submit-button:hover {
+    background: #357ab8;
+}
+
+.cancel-link {
+    display: block;
+    margin-top: 16px;
+    text-align: center;
+    color: #555;
+    text-decoration: none;
+}
+
+.delete-btn {
+    display: inline-block;
+    background: #F8BBD0;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    text-decoration: none;
+    margin-top: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.delete-btn:hover {
+    background: #F48FB1;
+}
+
+.dm-button {
+    display: inline-block;
+    background: #ffb6d9; /* ＋新しい投稿 と同じ系統のピンク */
+    color: white;
+    padding: 10px 18px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    transition: 0.2s;
+    margin: 10px 0 20px; /* 上下の余白を整える */
+}
+
+.dm-button:hover {
+    background: #ff9ccf; /* 少し濃いピンク */
+    transform: translateY(-1px);
+}
+

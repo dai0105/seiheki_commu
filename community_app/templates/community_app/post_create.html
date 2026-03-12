@@ -1,0 +1,20 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/timeline.css' %}">
+
+<div class="post-card">
+    <a href="{% url 'profile' request.user.id %}" class="back-btn">＜ プロフィールへ戻る</a>
+
+    <h2 class="post-title">新しい投稿</h2>
+
+    <form method="post" enctype="multipart/form-data" class="post-form">
+        {% csrf_token %}
+
+        <textarea name="content" placeholder="本文を入力…"></textarea>
+
+        <input type="file" name="image" accept="image/*">
+        <input type="file" name="video" accept="video/*">
+
+        <button type="submit">投稿する</button>
+    </form>
+</div>

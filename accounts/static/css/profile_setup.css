@@ -1,0 +1,40 @@
+.profile-setup-wrapper {
+    width: 420px;
+    margin: 80px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-family: sans-serif;
+}
+
+.profile-setup-wrapper h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-setup-wrapper label {
+    display: block;
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+.profile-setup-wrapper input,
+.profile-setup-wrapper select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.profile-setup-wrapper button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 12px;
+    background: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+}

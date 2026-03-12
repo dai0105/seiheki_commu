@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ご利用には月額プランの登録が必要です</title>
+    <link rel="stylesheet" href="{% static 'css/payment_start.css' %}">
+</head>
+
+<body>
+
+<div class="payment-start-wrapper">
+
+    <h2>ご利用には月額プランの登録が必要です</h2>
+
+    <p>決済へ進むと Stripe の決済ページが開きます。</p>
+
+    <form action="{% url 'create_checkout_session' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">決済へ進む</button>
+    </form>
+
+</div>
+
+</body>
+</html>

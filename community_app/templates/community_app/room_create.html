@@ -1,0 +1,26 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/timeline.css' %}">
+
+<a href="{% url 'room_list' %}" class="enter-btn">← コミュニティ一覧に戻る</a>
+
+<h2 class="page-title">新しい部屋を作る</h2>
+
+<div class="room-create-card">
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>カテゴリ</label>
+        {{ form.category }}
+
+        <label>部屋名</label>
+        {{ form.name }}
+
+        <label>人数上限（4〜10）</label>
+        {{ form.max_members }}
+
+        <label>説明文（任意）</label>
+        {{ form.description }}
+
+        <button type="submit" class="create-btn">作成する</button>
+    </form>
+</div>

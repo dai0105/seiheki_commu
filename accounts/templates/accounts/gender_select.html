@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>性別選択</title>
+    <link rel="stylesheet" href="{% static 'css/gender_select.css' %}">
+</head>
+
+<body>
+
+<div class="gender-wrapper">
+
+    <h2>性別を選択してください</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <button type="submit" name="gender" value="male" class="gender-btn male">
+            男性
+        </button>
+
+        <button type="submit" name="gender" value="female" class="gender-btn female">
+            女性
+        </button>
+    </form>
+
+</div>
+
+</body>
+</html>

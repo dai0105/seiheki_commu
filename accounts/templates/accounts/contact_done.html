@@ -1,0 +1,9 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/timeline.css' %}">
+
+<div class="form-container">
+    <h2>送信完了</h2>
+    <p>お問い合わせを受け付けました。</p>
+
+    <a href="{% url 'profile' user.id %}" class="submit-button">プロフィールに戻る</a>
+</div>
