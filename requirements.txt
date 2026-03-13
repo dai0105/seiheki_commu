@@ -5,3 +5,4 @@ stripe
 whitenoise
 django-storages 
 boto3
+Pillow
