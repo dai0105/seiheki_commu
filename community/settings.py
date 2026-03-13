@@ -171,4 +171,7 @@ AWS_DEFAULT_ACL = None
 AWS_S3_OBJECT_PARAMETERS = {
     "CacheControl": "max-age=86400",
 }
-AWS_S3_ADDRESSING_STYLE = "virtual"
+AWS_S3_ADDRESSING_STYLE = "path"
+
+# ★ 同名ファイルの上書きを防ぐ（推奨）
+AWS_S3_FILE_OVERWRITE = False
