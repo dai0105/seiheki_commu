@@ -142,8 +142,8 @@ LOGIN_URL = '/accounts/login/'
 
 LOGIN_REDIRECT_URL = '/community/rooms/'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+#MEDIA_URL = '/media/'
+#MEDIA_ROOT = BASE_DIR / 'media'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
