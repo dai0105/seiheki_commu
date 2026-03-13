@@ -155,7 +155,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Cloudflare R2 settings
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
-AWS_S3_ENDPOINT_URL = "https://624001eff91ee0dc44d797059777dd49.r2.cloudflarestorage.com"
+# ★ ACCOUNT ID を使って正しいエンドポイントを生成
+R2_ACCOUNT_ID = os.environ.get("R2_ACCOUNT_ID")
+AWS_S3_ENDPOINT_URL = f"https://{R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
+
 AWS_STORAGE_BUCKET_NAME = "seiheki-images"
 
 AWS_ACCESS_KEY_ID = os.environ.get("R2_ACCESS_KEY_ID")
@@ -172,5 +175,8 @@ AWS_S3_ADDRESSING_STYLE = "path"
 
 # ★ 同名ファイルの上書きを防ぐ（推奨）
 AWS_S3_FILE_OVERWRITE = False
+
+# ★ ここも ACCOUNT ID を使った URL に自動で変わる
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}"
+
 MEDIA_URL = f"{AWS_S3_CUSTOM_DOMAIN}/"
