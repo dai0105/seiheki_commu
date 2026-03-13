@@ -161,8 +161,8 @@ DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 AWS_S3_ENDPOINT_URL = "https://624001eff91ee0dc44d797059777dd49.r2.cloudflarestorage.com"
 AWS_STORAGE_BUCKET_NAME = "seiheki-images"
 
-AWS_ACCESS_KEY_ID = os.environ.get("0eb3850aefeb65f64ad95920f682bd66")
-AWS_SECRET_ACCESS_KEY = os.environ.get("abde7112bc9ee60943aff29985d43b955b847f7d201953df2f22382c75f9033f")
+AWS_ACCESS_KEY_ID = os.environ.get("R2_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("R2_SECRET_ACCESS_KEY")
 
 AWS_S3_REGION_NAME = "auto"
 AWS_S3_SIGNATURE_VERSION = "s3v4"
