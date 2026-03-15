@@ -14,6 +14,8 @@ from django.conf import settings
 def post_create(request):
     if request.method == 'POST':
         print("FILES:", request.FILES)
+        print("POST:", request.POST)
+        print("META CONTENT TYPE:", request.META.get("CONTENT_TYPE"))
         form = PostForm(request.POST, request.FILES) 
         if form.is_valid():
             post = form.save(commit=False)
