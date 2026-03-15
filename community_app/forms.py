@@ -4,12 +4,11 @@ from .models import Post, Room
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['content', 'tags', 'image', 'video']
+        fields = ['content', 'tags']  # ← image/video は絶対に入れない
         widgets = {
             'content': forms.Textarea(attrs={'rows': 3}),
             'tags': forms.CheckboxSelectMultiple(),
         }
-
 
 class RoomForm(forms.ModelForm):
     class Meta:
