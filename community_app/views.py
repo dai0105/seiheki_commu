@@ -39,7 +39,7 @@ def post_create(request):
                     ExtraArgs={"ContentType": file.content_type},
                 )
 
-                post.image = filename
+                post.image = f"{settings.R2_BASE_URL}/{filename}"
 
             # 動画アップロード
             if "video" in request.FILES:
@@ -53,7 +53,7 @@ def post_create(request):
                     ExtraArgs={"ContentType": file.content_type},
                 )
 
-                post.video = filename
+                post.video = f"{settings.R2_BASE_URL}/{filename}"
 
             post.save()
             form.save_m2m()

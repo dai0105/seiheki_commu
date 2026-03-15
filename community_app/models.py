@@ -15,12 +15,12 @@ class Post(models.Model):
     content = models.TextField(max_length=500, blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to='post_images/', blank=True, null=True)
-    video = models.FileField(upload_to='post_videos/', blank=True, null=True)
+
+    image = models.CharField(max_length=500, blank=True, null=True)
+    video = models.CharField(max_length=500, blank=True, null=True)
 
     def __str__(self):
         return f"{self.user.username} - {self.content[:20]}"
-
 
 
 class Category(models.Model):
