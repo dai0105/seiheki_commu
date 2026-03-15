@@ -13,6 +13,12 @@ from django.conf import settings
 @login_required
 def post_create(request):
     if request.method == 'POST':
+        # ---- ログ（ここが今回の核心） ----
+        print("FILES:", request.FILES)
+        print("POST:", request.POST)
+        print("META CONTENT TYPE:", request.META.get("CONTENT_TYPE"))
+        # ----------------------------------
+
         content = request.POST.get("content_text", "")
         image_file = request.FILES.get("image_file")
         video_file = request.FILES.get("video_file")
