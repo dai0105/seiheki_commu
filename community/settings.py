@@ -157,8 +157,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Cloudflare R2 S3 API Endpoint
 # ★ Cloudflare の「S3 API Endpoint」に書いてある長い ID を使う
-R2_S3_API_ID = os.environ.get("https://624001eff91ee0dc44d797059777dd49.r2.cloudflarestorage.com")  # ← ここは Cloudflare の S3 API ID を入れる
-
+R2_S3_API_ID = os.environ.get("R2_ACCOUNT_ID")
 AWS_S3_ENDPOINT_URL = f"https://{R2_S3_API_ID}.r2.cloudflarestorage.com"
 
 # R2 bucket
