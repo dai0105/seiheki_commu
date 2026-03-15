@@ -159,7 +159,7 @@ def room_detail(request, room_id):
         video_url = None
 
         # 画像アップロード
-        if image_file:
+        if image_file is not None:
             filename = f"room_images/{uuid.uuid4()}_{image_file.name}"
             try:
                 s3.upload_fileobj(
@@ -173,7 +173,7 @@ def room_detail(request, room_id):
                 print("UPLOAD ERROR:", e)
 
         # 動画アップロード
-        if video_file:
+        if video_file is not None:
             filename = f"room_videos/{uuid.uuid4()}_{video_file.name}"
             try:
                 s3.upload_fileobj(
