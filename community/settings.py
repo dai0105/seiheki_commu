@@ -181,6 +181,6 @@ AWS_S3_URL_PROTOCOL = "https:"
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-R2_BASE_URL = "https://pub-7fc541836bf942039d5282c6068be3c.r2.dev"
+R2_BASE_URL = "https://pub-7fc541836bf9420396d5282c6068be3c.r2.dev"
 
 print("R2_BASE_URL:", R2_BASE_URL)
