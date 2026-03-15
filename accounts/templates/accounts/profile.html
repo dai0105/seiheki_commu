@@ -72,12 +72,14 @@
             <p class="post-content">{{ post.content }}</p>
             
             {% if post.image %}
-                <img src="{{ post.image.url|safe }}" class="post-image">
-                <p>{{ post.image.url|safe }}</p>
+                <img src="{{ R2_BASE_URL }}/{{ post.image }}" class="post-image">
+                <p>{{ R2_BASE_URL }}/{{ post.image }}</p>
             {% endif %}
 
             {% if post.video %}
-                <video src="{{ post.video.url }}" controls class="post-video"></video>
+                <video controls class="post-video">
+                    <source src="{{ R2_BASE_URL }}/{{ post.video }}">
+                </video>
             {% endif %}
 
             <div class="post-tags">

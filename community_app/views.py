@@ -39,9 +39,7 @@ def post_create(request):
                     ExtraArgs={"ContentType": file.content_type},
                 )
 
-                post.image = str(
-                    f"{settings.AWS_S3_ENDPOINT_URL}/{settings.AWS_STORAGE_BUCKET_NAME}/{filename}"
-                )
+                post.image = filename
 
             # 動画アップロード
             if "video" in request.FILES:
@@ -55,9 +53,7 @@ def post_create(request):
                     ExtraArgs={"ContentType": file.content_type},
                 )
 
-                post.video = str(
-                    f"{settings.AWS_S3_ENDPOINT_URL}/{settings.AWS_STORAGE_BUCKET_NAME}/{filename}"
-                )
+                post.video = filename
 
             post.save()
             form.save_m2m()

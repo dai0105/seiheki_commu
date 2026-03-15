@@ -177,3 +177,5 @@ AWS_S3_CUSTOM_DOMAIN = f"{R2_S3_API_ID}.r2.cloudflarestorage.com"
 AWS_S3_URL_PROTOCOL = "https:"
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+R2_BASE_URL = f"https://{R2_S3_API_ID}.r2.cloudflarestorage.com/seiheki-images"
