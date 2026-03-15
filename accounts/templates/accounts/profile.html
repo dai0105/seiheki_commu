@@ -72,8 +72,8 @@
             <p class="post-content">{{ post.content }}</p>
             
             {% if post.image %}
-                <img src="{{ post.image.url }}" class="post-image">
-                <p>{{ post.image.url }}</p>
+                <img src="{{ post.image.url|safe }}" class="post-image">
+                <p>{{ post.image.url|safe }}</p>
             {% endif %}
 
             {% if post.video %}
