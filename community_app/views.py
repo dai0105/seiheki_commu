@@ -137,13 +137,53 @@ def room_detail(request, room_id):
     room = Room.objects.get(id=room_id)
 
     if request.method == "POST":
+        content = request.POST.get("message")
+        image_file = request.FILES.get("image")
+        video_file = request.FILES.get("video")
+
+        # boto3 クライアント
+        s3 = boto3.client(
+            "s3",
+            endpoint_url=settings.AWS_S3_ENDPOINT_URL,
+            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+            region_name="auto",
+        )
+
+        image_url = None
+        video_url = None
+
+        # 画像アップロード
+        if image_file:
+            filename = f"room_images/{uuid.uuid4()}_{image_file.name}"
+            s3.upload_fileobj(
+                image_file,
+                settings.AWS_STORAGE_BUCKET_NAME,
+                filename,
+                ExtraArgs={"ContentType": image_file.content_type},
+            )
+            image_url = f"{settings.R2_BASE_URL}/{filename}"
+
+        # 動画アップロード
+        if video_file:
+            filename = f"room_videos/{uuid.uuid4()}_{video_file.name}"
+            s3.upload_fileobj(
+                video_file,
+                settings.AWS_STORAGE_BUCKET_NAME,
+                filename,
+                ExtraArgs={"ContentType": video_file.content_type},
+            )
+            video_url = f"{settings.R2_BASE_URL}/{filename}"
+
+        # メッセージ作成
         Message.objects.create(
             room=room,
             user=request.user,
-            content=request.POST.get("message"),  # ← ここを message に！
-            image=request.FILES.get("image"),
-            video=request.FILES.get("video"),
+            content=content,
+            image=image_url,
+            video=video_url,
         )
+
         return redirect("room_detail", room_id=room_id)
 
     messages = room.messages.all().order_by("created_at")

@@ -46,8 +46,8 @@ class Message(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='messages')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField(blank=True)
-    image = models.ImageField(upload_to='room_images/', blank=True, null=True)
-    video = models.FileField(upload_to='room_videos/', blank=True, null=True)
+    image = models.TextField(blank=True, null=True)  # ← ここを変更
+    video = models.TextField(blank=True, null=True)  # ← ここを変更
     created_at = models.DateTimeField(auto_now_add=True)
 
 class RoomMember(models.Model):
