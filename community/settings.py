@@ -32,11 +32,7 @@ STRIPE_PRICE_ID = "price_1T5qvpPfF0XDfrqCnjS5kRf1"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    'seiheki-commu-1.onrender.com',
-]
+ALLOWED_HOSTS = ["*", "seiheki-commu-1.onrender.com"]
 
 
 # Application definition
