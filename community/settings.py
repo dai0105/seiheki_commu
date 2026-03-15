@@ -167,6 +167,9 @@ AWS_S3_ADDRESSING_STYLE = "path"
 
 AWS_S3_CONFIG = {
     "signature_version": "s3v4",
+    "s3": {
+        "addressing_style": "path",
+    },
 }
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
