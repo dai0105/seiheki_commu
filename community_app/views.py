@@ -133,6 +133,8 @@ def room_create(request):
         "form": form
     })
 
+
+
 def room_detail(request, room_id):
     room = Room.objects.get(id=room_id)
 
@@ -192,8 +194,6 @@ def room_detail(request, room_id):
         "room": room,
         "messages": messages,
     })
-
-
 
 @login_required
 def join_room(request, room_id):
