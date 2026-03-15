@@ -72,7 +72,7 @@ def timeline(request):
 
 
 
-
+"""
 @csrf_exempt
 def api_post_create(request):
     if request.method != "POST":
@@ -127,7 +127,7 @@ def api_post_create(request):
     post.save()
 
     return JsonResponse({"success": True})
-
+"""
 
 
 @login_required
