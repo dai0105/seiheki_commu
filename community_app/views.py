@@ -13,10 +13,16 @@ from django.conf import settings
 @login_required
 def post_create(request):
     if request.method == 'POST':
+        # まず最初に FILES を退避（form に壊される前に）
+        image_file = request.FILES.get("image")
+        video_file = request.FILES.get("video")
+
         print("FILES:", request.FILES)
         print("POST:", request.POST)
         print("META CONTENT TYPE:", request.META.get("CONTENT_TYPE"))
-        form = PostForm(request.POST, request.FILES) 
+
+        form = PostForm(request.POST)  # ← request.FILES を渡さない
+
         if form.is_valid():
             post = form.save(commit=False)
             post.user = request.user
@@ -31,29 +37,27 @@ def post_create(request):
             )
 
             # 画像アップロード
-            if "image" in request.FILES:
-                file = request.FILES["image"]
-                filename = f"post_images/{uuid.uuid4()}_{file.name}"
+            if image_file:
+                filename = f"post_images/{uuid.uuid4()}_{image_file.name}"
 
                 s3.upload_fileobj(
-                    file,
+                    image_file,
                     settings.AWS_STORAGE_BUCKET_NAME,
                     filename,
-                    ExtraArgs={"ContentType": file.content_type},
+                    ExtraArgs={"ContentType": image_file.content_type},
                 )
 
                 post.image = f"{settings.R2_BASE_URL}/{filename}"
 
             # 動画アップロード
-            if "video" in request.FILES:
-                file = request.FILES["video"]
-                filename = f"post_videos/{uuid.uuid4()}_{file.name}"
+            if video_file:
+                filename = f"post_videos/{uuid.uuid4()}_{video_file.name}"
 
                 s3.upload_fileobj(
-                    file,
+                    video_file,
                     settings.AWS_STORAGE_BUCKET_NAME,
                     filename,
-                    ExtraArgs={"ContentType": file.content_type},
+                    ExtraArgs={"ContentType": video_file.content_type},
                 )
 
                 post.video = f"{settings.R2_BASE_URL}/{filename}"
