@@ -150,20 +150,22 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Cloudflare R2 settings (boto3 direct upload)
 
-
-# Cloudflare R2 S3 API Endpoint
-# ★ Cloudflare の「S3 API Endpoint」に書いてある長い ID を使う
 R2_S3_API_ID = os.environ.get("R2_ACCOUNT_ID")
 AWS_S3_ENDPOINT_URL = f"https://{R2_S3_API_ID}.r2.cloudflarestorage.com"
 
-# R2 bucket
 AWS_STORAGE_BUCKET_NAME = "seiheki-images"
 
-# Credentials
 AWS_ACCESS_KEY_ID = os.environ.get("R2_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("R2_SECRET_ACCESS_KEY")
 
-# Region (R2 固有)
 AWS_S3_REGION_NAME = "auto"
+
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+AWS_S3_ADDRESSING_STYLE = "path"
+
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}"
+
+MEDIA_URL = f"{AWS_S3_CUSTOM_DOMAIN}/"
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
