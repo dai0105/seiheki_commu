@@ -19,7 +19,7 @@ urlpatterns = [
     path('', include('community_app.urls')),
 
     # ★ API（ここに追加）
-    path("api/post/create/", views.api_post_create, name="api_post_create"),
+    #path("api/post/create/", views.api_post_create, name="api_post_create"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
