@@ -161,24 +161,30 @@ def room_detail(request, room_id):
         # 画像アップロード
         if image_file:
             filename = f"room_images/{uuid.uuid4()}_{image_file.name}"
-            s3.upload_fileobj(
-                image_file,
-                settings.AWS_STORAGE_BUCKET_NAME,
-                filename,
-                ExtraArgs={"ContentType": image_file.content_type},
-            )
-            image_url = f"{settings.R2_BASE_URL}/{filename}"
+            try:
+                s3.upload_fileobj(
+                    image_file,
+                    settings.AWS_STORAGE_BUCKET_NAME,
+                    filename,
+                    ExtraArgs={"ContentType": image_file.content_type or "image/jpeg"},
+                )
+                image_url = f"{settings.R2_BASE_URL}/{filename}"
+            except Exception as e:
+                print("UPLOAD ERROR:", e)
 
         # 動画アップロード
         if video_file:
             filename = f"room_videos/{uuid.uuid4()}_{video_file.name}"
-            s3.upload_fileobj(
-                video_file,
-                settings.AWS_STORAGE_BUCKET_NAME,
-                filename,
-                ExtraArgs={"ContentType": video_file.content_type},
-            )
-            video_url = f"{settings.R2_BASE_URL}/{filename}"
+            try:
+                s3.upload_fileobj(
+                    video_file,
+                    settings.AWS_STORAGE_BUCKET_NAME,
+                    filename,
+                    ExtraArgs={"ContentType": video_file.content_type},
+                )
+                video_url = f"{settings.R2_BASE_URL}/{filename}"
+            except Exception as e:
+                print("UPLOAD ERROR:", e)
 
         # メッセージ作成
         Message.objects.create(
