@@ -165,4 +165,8 @@ DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
 AWS_S3_ADDRESSING_STYLE = "path"
 
+AWS_S3_CONFIG = {
+    "signature_version": "s3v4",
+}
+
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
