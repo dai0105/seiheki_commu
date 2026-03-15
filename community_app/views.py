@@ -13,6 +13,7 @@ from django.conf import settings
 @login_required
 def post_create(request):
     if request.method == 'POST':
+        print("FILES:", request.FILES)
         form = PostForm(request.POST, request.FILES) 
         if form.is_valid():
             post = form.save(commit=False)
