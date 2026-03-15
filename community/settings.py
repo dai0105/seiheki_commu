@@ -30,7 +30,7 @@ STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 STRIPE_PRICE_ID = "price_1T5qvpPfF0XDfrqCnjS5kRf1"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*", "seiheki-commu-1.onrender.com"]
 
@@ -165,3 +165,5 @@ AWS_SECRET_ACCESS_KEY = os.environ.get("R2_SECRET_ACCESS_KEY")
 
 # Region (R2 固有)
 AWS_S3_REGION_NAME = "auto"
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
