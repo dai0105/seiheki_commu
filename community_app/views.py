@@ -143,6 +143,9 @@ def room_detail(request, room_id):
         image_file = request.FILES.get("image")
         video_file = request.FILES.get("video")
 
+        print("DEBUG image_file:", image_file)
+        print("DEBUG FILES:", request.FILES)
+
         # boto3 クライアント
         s3 = boto3.client(
             "s3",
