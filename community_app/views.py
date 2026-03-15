@@ -13,7 +13,7 @@ from django.conf import settings
 @login_required
 def post_create(request):
     if request.method == 'POST':
-        form = PostForm(request.POST)  # ← image/video は form で扱わない
+        form = PostForm(request.POST, request.FILES) 
         if form.is_valid():
             post = form.save(commit=False)
             post.user = request.user
