@@ -22,6 +22,7 @@ class Post(models.Model):
         return f"{self.user.username} - {self.content[:20]}"
 
 
+
 class Category(models.Model):
     name = models.CharField(max_length=50)
 

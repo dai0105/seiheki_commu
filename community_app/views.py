@@ -5,23 +5,70 @@ from .models import Post, Room, Category, Message, RoomMember, DMRoom, DMMessage
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from django.http import HttpResponse
-
+import boto3
+import uuid
+from django.conf import settings
 
 
 @login_required
 def post_create(request):
     if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES)  # ← ここが重要！
+        form = PostForm(request.POST)  # ← image/video は form で扱わない
         if form.is_valid():
             post = form.save(commit=False)
             post.user = request.user
+
+            # boto3 クライアント
+            s3 = boto3.client(
+                "s3",
+                endpoint_url=settings.AWS_S3_ENDPOINT_URL,
+                aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+                aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+                region_name="auto",
+            )
+
+            # 画像アップロード
+            if "image" in request.FILES:
+                file = request.FILES["image"]
+                filename = f"post_images/{uuid.uuid4()}_{file.name}"
+
+                s3.upload_fileobj(
+                    file,
+                    settings.AWS_STORAGE_BUCKET_NAME,
+                    filename,
+                    ExtraArgs={"ContentType": file.content_type},
+                )
+
+                post.image = str(
+                    f"{settings.AWS_S3_ENDPOINT_URL}/{settings.AWS_STORAGE_BUCKET_NAME}/{filename}"
+                )
+
+            # 動画アップロード
+            if "video" in request.FILES:
+                file = request.FILES["video"]
+                filename = f"post_videos/{uuid.uuid4()}_{file.name}"
+
+                s3.upload_fileobj(
+                    file,
+                    settings.AWS_STORAGE_BUCKET_NAME,
+                    filename,
+                    ExtraArgs={"ContentType": file.content_type},
+                )
+
+                post.video = str(
+                    f"{settings.AWS_S3_ENDPOINT_URL}/{settings.AWS_STORAGE_BUCKET_NAME}/{filename}"
+                )
+
             post.save()
-            form.save_m2m()  # タグの保存に必要
+            form.save_m2m()
+
             return redirect('profile', user_id=request.user.id)
+
     else:
         form = PostForm()
 
     return render(request, 'community_app/post_create.html', {'form': form})
+
 
 def timeline(request):
     posts = Post.objects.all().order_by('-created_at')

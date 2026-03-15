@@ -152,31 +152,21 @@ DEFAULT_FROM_EMAIL = 'support@seiheki-app.com'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Cloudflare R2 settings
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+# Cloudflare R2 settings (boto3 direct upload)
 
-# ★ ACCOUNT ID を使って正しいエンドポイントを生成
-R2_ACCOUNT_ID = os.environ.get("R2_ACCOUNT_ID")
-AWS_S3_ENDPOINT_URL = f"https://{R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
 
+# Cloudflare R2 S3 API Endpoint
+# ★ Cloudflare の「S3 API Endpoint」に書いてある長い ID を使う
+R2_S3_API_ID = os.environ.get("https://624001eff91ee0dc44d797059777dd49.r2.cloudflarestorage.com")  # ← ここは Cloudflare の S3 API ID を入れる
+
+AWS_S3_ENDPOINT_URL = f"https://{R2_S3_API_ID}.r2.cloudflarestorage.com"
+
+# R2 bucket
 AWS_STORAGE_BUCKET_NAME = "seiheki-images"
 
+# Credentials
 AWS_ACCESS_KEY_ID = os.environ.get("R2_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("R2_SECRET_ACCESS_KEY")
 
+# Region (R2 固有)
 AWS_S3_REGION_NAME = "auto"
-AWS_S3_SIGNATURE_VERSION = "s3v4"
-
-AWS_DEFAULT_ACL = None
-AWS_S3_OBJECT_PARAMETERS = {
-    "CacheControl": "max-age=86400",
-}
-AWS_S3_ADDRESSING_STYLE = "path"
-
-# ★ 同名ファイルの上書きを防ぐ（推奨）
-AWS_S3_FILE_OVERWRITE = False
-
-# ★ ここも ACCOUNT ID を使った URL に自動で変わる
-AWS_S3_CUSTOM_DOMAIN = f"{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}"
-
-MEDIA_URL = f"{AWS_S3_CUSTOM_DOMAIN}/"
