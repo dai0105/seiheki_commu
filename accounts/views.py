@@ -13,10 +13,7 @@ from django.urls import reverse
 from django.core.mail import send_mail
 from .models import Contact
 from django.contrib.auth.hashers import make_password
-
-
-
-
+import boto3
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
