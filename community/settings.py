@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'community_app',
+    'community_app.apps.CommunityAppConfig',
 ]
 
 
