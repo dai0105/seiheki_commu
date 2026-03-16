@@ -34,7 +34,7 @@
     <div class="profile-bio">{{ profile.bio|linebreaksbr }}</div>
 
     {% if profile.icon %}
-        <img src="{{ profile.icon.url }}" class="profile-icon">
+        <img src="{{ profile.icon }}" class="profile-icon">
     {% else %}
         <div class="profile-icon default-icon">
             {{ profile.nickname|first }}
