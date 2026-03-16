@@ -30,7 +30,7 @@ STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 STRIPE_PRICE_ID = "price_1T5qvpPfF0XDfrqCnjS5kRf1"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*", "seiheki-commu-1.onrender.com"]
 
