@@ -17,7 +17,7 @@
 
     {% for item in room_data %}
         
-        <a href="{% url 'dm_detail' item.room.id %}" class="dm-card">
+        <a href="{% url 'dm_detail' item.room.id %}" class="dm-card {% if item.has_new %}new-dm{% endif %}">
 
             <!-- 左エリア -->
             <div class="dm-left">
@@ -31,11 +31,20 @@
                 {% endif %}
 
                 <div class="dm-info">
-                    <p class="dm-name">{{ item.partner.profile.nickname }}</p>
+                    <p class="dm-name">
+                        {{ item.partner.profile.nickname }}
+                        {% if item.has_new %}
+                            <span class="new-badge">NEW</span>
+                        {% endif %}
+                    </p>
 
-                    {% if item.room.latest_message %}
+                    {% if item.last_msg %}
                         <p class="dm-latest">
-                            {{ item.room.latest_message.content|truncatechars:20 }}
+                            {% if item.last_msg.content %}
+                                {{ item.last_msg.content|truncatechars:20 }}
+                            {% else %}
+                                画像/動画が送信されました
+                            {% endif %}
                         </p>
                     {% else %}
                         <p class="dm-latest no-message">まだメッセージはありません</p>

@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import PostForm, RoomForm
 from .models import Post, Room, Category, Message, RoomMember, DMRoom, DMMessage, Block
 from django.contrib.auth import get_user_model
-from django.db.models import Q
+from django.db.models import Q, Max
 from django.http import HttpResponse
 import boto3
 import uuid
@@ -349,12 +349,24 @@ def dm_list(request):
         Q(user1=request.user) | Q(user2=request.user)
     )
 
+    # 最新メッセージ順に並べる
+    rooms = rooms.annotate(
+        last_msg_time=Max('messages__created_at')
+    ).order_by('-last_msg_time')
+
     room_data = []
     for room in rooms:
         partner = room.get_partner(request.user)
+        last_msg = room.messages.order_by('-created_at').first()
+
+        # 新着判定：最新メッセージが相手なら NEW
+        has_new = last_msg and last_msg.sender != request.user
+
         room_data.append({
             'room': room,
             'partner': partner,
+            'last_msg': last_msg,
+            'has_new': has_new,
         })
 
     return render(request, 'community_app/dm_list.html', {
