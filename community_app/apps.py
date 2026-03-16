@@ -5,4 +5,4 @@ class CommunityAppConfig(AppConfig):
     name = 'community_app'
 
     def ready(self):
-        import community_app.signals
+        import accounts.signals
