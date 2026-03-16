@@ -29,7 +29,7 @@
             <div class="message-header">
                 <a href="{% url 'profile' msg.user.id %}">
                     {% if msg.user.profile.icon %}
-                        <img src="{{ msg.user.profile.icon.url }}" class="message-icon">
+                        <img src="{{ msg.user.profile.icon }}" class="message-icon">
                     {% else %}
                         <div class="message-icon default-icon">
                             {{ msg.user.profile.nickname|first }}

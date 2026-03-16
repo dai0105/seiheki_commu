@@ -23,7 +23,7 @@
             <div class="dm-left">
 
                 {% if item.partner.profile.icon %}
-                    <img src="{{ item.partner.profile.icon.url }}" class="dm-icon">
+                    <img src="{{ item.partner.profile.icon }}" class="dm-icon">
                 {% else %}
                     <div class="dm-icon default-icon">
                         {{ item.partner.profile.nickname|first }}
