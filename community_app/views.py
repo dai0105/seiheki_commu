@@ -335,6 +335,12 @@ def dm_detail(request, room_id):
         )
 
         return redirect('dm_detail', room_id=room_id)
+    
+    latest = room.messages.last()
+    if latest and latest.sender != request.user:
+        latest.sender = request.user
+        latest.save()
+
 
     # メッセージ一覧
     messages = room.messages.all().order_by('created_at')
@@ -343,6 +349,8 @@ def dm_detail(request, room_id):
         "room": room,
         "messages": messages,
     })
+
+
 @login_required
 def dm_list(request):
     rooms = DMRoom.objects.filter(
