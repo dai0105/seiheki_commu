@@ -229,9 +229,37 @@ def profile_edit(request):
 
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
+
         if form.is_valid():
+            icon_file = request.FILES.get("icon")
+
+            # 画像がアップロードされた場合だけ R2 に保存
+            if icon_file:
+                s3 = boto3.client(
+                    "s3",
+                    endpoint_url=settings.AWS_S3_ENDPOINT_URL,
+                    aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+                    aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+                    region_name="auto",
+                )
+
+                filename = f"profile_icons/{uuid.uuid4()}_{icon_file.name}"
+
+                try:
+                    s3.upload_fileobj(
+                        icon_file,
+                        settings.AWS_STORAGE_BUCKET_NAME,
+                        filename,
+                        ExtraArgs={"ContentType": icon_file.content_type or "image/jpeg"},
+                    )
+                    # R2 の URL をフォームの保存対象にする
+                    form.instance.icon = f"{settings.R2_BASE_URL}/{filename}"
+                except Exception as e:
+                    print("UPLOAD ERROR:", e)
+
             form.save()
             return redirect('profile', user_id=request.user.id)
+
     else:
         form = ProfileForm(instance=profile)
 
