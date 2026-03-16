@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 load_dotenv()
+import dj_database_url
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -87,11 +88,14 @@ WSGI_APPLICATION = 'community.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default="postgresql://seiheki_commu_db_user:soQLUYzrukHY9m7cUlVstjLNk7Lk744e@dpg-d6s3df1aae7s73d3grtg-a.oregon-postgres.render.com/seiheki_commu_db",
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 
