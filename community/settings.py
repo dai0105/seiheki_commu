@@ -45,8 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
-    'community_app',
-    'community_app.apps.CommunityAppConfig',
+    'community_app.apps.CommunityAppConfig',  # ← これだけ残す
 ]
 
 
