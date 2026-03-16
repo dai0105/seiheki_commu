@@ -53,11 +53,11 @@
                         {% endif %}
 
                         {% if msg.image %}
-                            <img src="{{ msg.image.url }}" class="dm-image">
+                            <img src="{{ msg.image }}" class="dm-image">
                         {% endif %}
 
                         {% if msg.video %}
-                            <video src="{{ msg.video.url }}" controls class="dm-video"></video>
+                            <video src="{{ msg.video }}" controls class="dm-video"></video>
                         {% endif %}
                     </div>
                     <div class="time">{{ msg.created_at|date:"H:i" }}</div>

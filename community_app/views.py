@@ -279,32 +279,70 @@ def dm_detail(request, room_id):
     if Block.objects.filter(blocker=request.user, blocked=partner).exists():
         return HttpResponse("あなたはこのユーザーをブロックしています。")
 
-
     # メッセージ送信
     if request.method == "POST":
         content = request.POST.get("message", "")
-        image = request.FILES.get("image")
-        video = request.FILES.get("video")
+        image_file = request.FILES.get("image")
+        video_file = request.FILES.get("video")
 
+        # boto3 クライアント
+        s3 = boto3.client(
+            "s3",
+            endpoint_url=settings.AWS_S3_ENDPOINT_URL,
+            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+            region_name="auto",
+        )
+
+        image_url = None
+        video_url = None
+
+        # 画像アップロード
+        if image_file is not None:
+            filename = f"dm_images/{uuid.uuid4()}_{image_file.name}"
+            try:
+                s3.upload_fileobj(
+                    image_file,
+                    settings.AWS_STORAGE_BUCKET_NAME,
+                    filename,
+                    ExtraArgs={"ContentType": image_file.content_type or "image/jpeg"},
+                )
+                image_url = f"{settings.R2_BASE_URL}/{filename}"
+            except Exception as e:
+                print("UPLOAD ERROR:", e)
+
+        # 動画アップロード
+        if video_file is not None:
+            filename = f"dm_videos/{uuid.uuid4()}_{video_file.name}"
+            try:
+                s3.upload_fileobj(
+                    video_file,
+                    settings.AWS_STORAGE_BUCKET_NAME,
+                    filename,
+                    ExtraArgs={"ContentType": video_file.content_type or "video/mp4"},
+                )
+                video_url = f"{settings.R2_BASE_URL}/{filename}"
+            except Exception as e:
+                print("UPLOAD ERROR:", e)
+
+        # メッセージ作成
         DMMessage.objects.create(
             room=room,
             sender=request.user,
             content=content,
-            image=image,
-            video=video
+            image=image_url,
+            video=video_url,
         )
 
         return redirect('dm_detail', room_id=room_id)
 
-    # メッセージ一覧（正しい related_name を使う）
+    # メッセージ一覧
     messages = room.messages.all().order_by('created_at')
 
     return render(request, "community_app/dm_detail.html", {
         "room": room,
         "messages": messages,
     })
-
-
 @login_required
 def dm_list(request):
     rooms = DMRoom.objects.filter(
