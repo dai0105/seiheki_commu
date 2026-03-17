@@ -15,6 +15,7 @@ urlpatterns = [
 
     # ここから課金ページ
     #path('payment/', views.payment, name='payment'),
+    path('webhook/stripe/', views.stripe_webhook, name='stripe_webhook'),
     path('create-checkout-session/', views.create_checkout_session, name='create_checkout_session'),
     path('payment/success/', views.payment_success, name='payment_success'),
     path('payment/cancel/', views.payment_cancel, name='payment_cancel'),

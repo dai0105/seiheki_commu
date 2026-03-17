@@ -14,6 +14,9 @@ from django.core.mail import send_mail
 from .models import Contact
 from django.contrib.auth.hashers import make_password
 import boto3
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -55,10 +58,38 @@ def create_checkout_session(request):
         mode='subscription',
         success_url=success_url,
         cancel_url=cancel_url,
+        client_reference_id=request.user.id,
     )
 
     return redirect(session.url, code=303)
 
+
+@csrf_exempt
+def stripe_webhook(request):
+    payload = request.body
+    sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
+    endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, endpoint_secret
+        )
+    except Exception:
+        return HttpResponse(status=400)
+
+    # 決済完了イベント
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+
+        customer_id = session.get("customer")
+        user_id = session.get("client_reference_id")
+
+        if customer_id and user_id:
+            profile = Profile.objects.get(user_id=user_id)
+            profile.stripe_customer_id = customer_id
+            profile.save()
+
+    return HttpResponse(status=200)
 
 def payment_success(request):
     session_id = request.GET.get('session_id')
