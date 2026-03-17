@@ -42,27 +42,33 @@ def gender_select(request):
 
 def create_checkout_session(request):
     print("DEBUG: create_checkout_session called")
-    success_url = request.build_absolute_uri(
-        reverse('payment_success')
-    ) + '?session_id={CHECKOUT_SESSION_ID}'
 
-    cancel_url = request.build_absolute_uri(
-        reverse('payment_cancel')
-    )
+    try:
+        success_url = request.build_absolute_uri(
+            reverse('payment_success')
+        ) + '?session_id={CHECKOUT_SESSION_ID}'
 
-    session = stripe.checkout.Session.create(
-        payment_method_types=['card'],
-        line_items=[{
-            'price': settings.STRIPE_PRICE_ID,
-            'quantity': 1,
-        }],
-        mode='subscription',
-        success_url=success_url,
-        cancel_url=cancel_url,
-        client_reference_id=request.user.id,
-    )
+        cancel_url = request.build_absolute_uri(
+            reverse('payment_cancel')
+        )
 
-    return redirect(session.url, code=303)
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'price': settings.STRIPE_PRICE_ID,
+                'quantity': 1,
+            }],
+            mode='subscription',
+            success_url=success_url,
+            cancel_url=cancel_url,
+            client_reference_id=request.user.id,
+        )
+
+        return redirect(session.url, code=303)
+
+    except Exception as e:
+        print("ERROR in create_checkout_session:", e)
+        raise
 
 
 @csrf_exempt
