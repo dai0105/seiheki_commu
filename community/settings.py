@@ -92,7 +92,7 @@ WSGI_APPLICATION = 'community.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default="postgresql://seiheki_commu_db_user:soQLUYzrukHY9m7cUlVstjLNk7Lk744e@dpg-d6s3df1aae7s73d3grtg-a.oregon-postgres.render.com/seiheki_commu_db",
+        default="postgres://seiheki_commu_db_user:soQLUYzrukHY9m7cUlVstjLNk7Lk744e@dpg-d6s3df1aae7s73d3grtg-a.oregon-postgres.render.com/seiheki_commu_db",
         conn_max_age=600,
         ssl_require=True
     )
