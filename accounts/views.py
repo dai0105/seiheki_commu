@@ -41,6 +41,7 @@ def gender_select(request):
 
 
 def create_checkout_session(request):
+    print("DEBUG: create_checkout_session called")
     success_url = request.build_absolute_uri(
         reverse('payment_success')
     ) + '?session_id={CHECKOUT_SESSION_ID}'
