@@ -69,8 +69,7 @@ def create_checkout_session(request):
     except Exception as e:
         print("ERROR in create_checkout_session:", e)
         raise
-
-
+    
 @csrf_exempt
 def stripe_webhook(request):
     payload = request.body
