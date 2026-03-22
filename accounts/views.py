@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-import stripe
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
@@ -17,9 +16,6 @@ import boto3
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
-
-
-stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 def gender_select(request):
@@ -88,7 +84,6 @@ def profile_setup(request):
     return render(request, 'accounts/profile_setup.html')
 
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 def login_view(request):
@@ -99,37 +94,10 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
 
         if user:
-            profile = user.profile
-
-            # ① 男性で決済していない（stripe_customer_id が無い）→ ログイン不可
-            if profile.gender == "male" and not profile.stripe_customer_id:
-                return render(request, 'accounts/login.html', {
-                    'subscription_expired': True
-                })
-
-            # ② Stripe のサブスク状態チェック（男性のみ）
-            if profile.gender == "male" and profile.stripe_customer_id:
-                subscriptions = stripe.Subscription.list(
-                    customer=profile.stripe_customer_id,
-                    limit=1
-                )
-
-                if subscriptions.data:
-                    sub = subscriptions.data[0]
-
-                    # active 以外はログインさせない
-                    if sub.status != "active":
-                        return render(request, 'accounts/login.html', {
-                            'subscription_expired': True
-                        })
-
-            # ③ ここまで来たらログインOK
             login(request, user)
             next_url = request.GET.get('next') or reverse('room_list')
             return redirect(next_url)
-
         else:
-            # 認証失敗（パスワード間違い）
             return render(request, 'accounts/login.html', {
                 'error': 'ユーザー名またはパスワードが違います。',
             })
@@ -196,28 +164,8 @@ def profile_edit(request):
     return render(request, 'accounts/profile_edit.html', {'form': form})
 
 
-@login_required
-def billing_portal(request):
-    # Stripe の Customer ID をユーザーの Profile から取得
-    customer_id = request.user.profile.stripe_customer_id
 
-    session = stripe.billing_portal.Session.create(
-        customer=customer_id,
-        return_url=request.build_absolute_uri('/accounts/profile/')
-    )
 
-    return redirect(session.url)
-
-@login_required
-def cancel_subscription(request):
-    customer_id = request.user.profile.stripe_customer_id
-
-    session = stripe.billing_portal.Session.create(
-        customer=customer_id,
-        return_url=request.build_absolute_uri('/accounts/profile/'),
-    )
-
-    return redirect(session.url)
 
 @login_required
 def account_delete_confirm(request):
@@ -226,34 +174,12 @@ def account_delete_confirm(request):
 
 
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 @login_required
 def account_delete(request):
     if request.method == "POST":
-        user = request.user
-        profile = user.profile
-
-        # Stripe のサブスクをキャンセル
-        if profile.stripe_customer_id:
-            try:
-                # customer に紐づく active な subscription を取得
-                subscriptions = stripe.Subscription.list(
-                    customer=profile.stripe_customer_id,
-                    status="active"
-                )
-
-                # active なサブスクがあればキャンセル
-                for sub in subscriptions.data:
-                    stripe.Subscription.delete(sub.id)
-
-            except Exception as e:
-                print("Stripe cancel error:", e)
-
-        # Django のユーザー削除
-        user.delete()
-
+        request.user.delete()
         return redirect('login')  # 削除後はログイン画面へ
 
     return redirect('account_delete_confirm')
