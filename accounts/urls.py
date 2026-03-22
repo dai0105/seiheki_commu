@@ -13,8 +13,7 @@ urlpatterns = [
     path('profile/<int:user_id>/', views.profile_view, name='profile'),
     path('profile/edit/', views.profile_edit, name='profile_edit'),
 
-    path('billing/', views.billing_portal, name='billing_portal'),
-    path('cancel/', views.cancel_subscription, name='cancel_subscription'),
+  
 
     path('delete/confirm/', views.account_delete_confirm, name='account_delete_confirm'),
     path('delete/', views.account_delete, name='account_delete'),
