@@ -100,19 +100,6 @@
     <h3 class="settings-title">設定</h3>
 
     <a href="{% url 'qa_page' %}" class="settings-item">Q&A</a>
-
-    {% if user.profile.gender == 'male' %}
-        <a href="{% url 'billing_portal' %}" class="settings-item">
-            請求管理（Stripe）
-        </a>
-    {% endif %}
-
-    {% if user.profile.gender == "male" %}
-        <a href="{% url 'cancel_subscription' %}" class="setting-item">
-            解約する
-        </a>
-    {% endif %}
-
     <a href="{% url 'account_delete_confirm' %}" class="setting-item">アカウント削除</a>
     <a href="{% url 'contact' %}" class="settings-item">お問い合わせ</a>
     <a href="{% url 'terms' %}" class="setting-item">利用規約</a>

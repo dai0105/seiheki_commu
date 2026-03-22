@@ -6,19 +6,9 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('profile/setup/', views.profile_setup, name='profile_setup'),
     path('login/', views.login_view, name='login'),
-    path('payment/start/', views.payment_start, name='payment_start'),
     
 
-    # ログイン後のトップページ
-    #path('home/', views.home, name='home'),
 
-
-    # ここから課金ページ
-    #path('payment/', views.payment, name='payment'),
-    path('webhook/stripe/', views.stripe_webhook, name='stripe_webhook'),
-    path('create-checkout-session/', views.create_checkout_session, name='create_checkout_session'),
-    path('payment/success/', views.payment_success, name='payment_success'),
-    path('payment/cancel/', views.payment_cancel, name='payment_cancel'),
 
     path('profile/<int:user_id>/', views.profile_view, name='profile'),
     path('profile/edit/', views.profile_edit, name='profile_edit'),

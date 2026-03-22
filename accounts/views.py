@@ -31,113 +31,13 @@ def gender_select(request):
     return render(request, 'accounts/gender_select.html')
 
 
-
-
-
-# -------------------------
-# ここから Stripe 決済用の処理
-# -------------------------
-
-
-
-def create_checkout_session(request):
-    print("DEBUG: create_checkout_session called")
-
-    try:
-        success_url = request.build_absolute_uri(
-            reverse('payment_success')
-        ) + '?session_id={CHECKOUT_SESSION_ID}'
-
-        cancel_url = request.build_absolute_uri(
-            reverse('payment_cancel')
-        )
-
-        session = stripe.checkout.Session.create(
-            payment_method_types=['card'],
-            line_items=[{
-                'price': settings.STRIPE_PRICE_ID,
-                'quantity': 1,
-            }],
-            mode='subscription',
-            success_url=success_url,
-            cancel_url=cancel_url,
-            client_reference_id=request.user.id,
-        )
-
-        return redirect(session.url, code=303)
-
-    except Exception as e:
-        print("ERROR in create_checkout_session:", e)
-        raise
-    
-@csrf_exempt
-def stripe_webhook(request):
-    payload = request.body
-    sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
-    endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
-
-    try:
-        event = stripe.Webhook.construct_event(
-            payload, sig_header, endpoint_secret
-        )
-    except Exception:
-        return HttpResponse(status=400)
-
-    # 決済完了イベント
-    if event['type'] == 'checkout.session.completed':
-        session = event['data']['object']
-
-        customer_id = session.get("customer")
-        user_id = session.get("client_reference_id")
-
-        if customer_id and user_id:
-            profile = Profile.objects.get(user_id=user_id)
-            profile.stripe_customer_id = customer_id
-            profile.save()
-
-    return HttpResponse(status=200)
-
-def payment_success(request):
-    session_id = request.GET.get('session_id')
-    session = stripe.checkout.Session.retrieve(session_id)
-
-    customer_id = session.customer
-
-    user = request.user
-    profile = user.profile
-
-    # Stripe Customer ID を保存
-    profile.stripe_customer_id = customer_id
-
-    # 新規登録の男性だけ gender をセット
-    if not profile.gender:
-        profile.gender = 'male'
-
-    profile.save()
-
-    # ここから分岐
-    # プロフィール未設定なら setup へ
-    if not profile.nickname or not profile.age_range:
-        return redirect('/accounts/profile/setup/')
-
-    # すでにプロフィールがある人は普通にログイン後の画面へ
-    return redirect('room_list')
-
-
-
-
-def payment_cancel(request):
-    return render(request, 'accounts/payment_cancel.html')
-
-
-
 def register(request):
     print("REGISTER VIEW CALLED")
     print("SESSION:", dict(request.session))
     print("GENDER:", request.session.get('gender'))
 
     if request.method == 'POST':
-        # 年齢確認チェック（ここが追加部分）
+        # 年齢確認チェック
         if not request.POST.get("age_confirm"):
             form = CustomUserCreationForm(request.POST)
             form.add_error(None, "18歳未満の方はご利用いただけません。")
@@ -155,8 +55,7 @@ def register(request):
             profile.gender = gender
             profile.save()
 
-            if gender == 'male':
-                return redirect('payment_start')
+            # ★ 男女共通でプロフィール入力へ
             return redirect('/accounts/profile/setup/')
     else:
         form = CustomUserCreationForm()
@@ -164,10 +63,7 @@ def register(request):
     return render(request, 'accounts/register.html', {'form': form})
 
 
-def payment_start(request):
-    if not request.user.is_authenticated:
-        return redirect('/login/')
-    return render(request, 'accounts/payment_start.html')
+
 
 
 def profile_setup(request):
