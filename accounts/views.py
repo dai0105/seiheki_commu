@@ -32,6 +32,10 @@ def register(request):
     print("SESSION:", dict(request.session))
     print("GENDER:", request.session.get('gender'))
 
+    # ★ 性別が未選択なら gender_select に戻す
+    if not request.session.get('gender'):
+        return redirect('gender_select')
+
     if request.method == 'POST':
         # 年齢確認チェック
         if not request.POST.get("age_confirm"):
@@ -41,7 +45,6 @@ def register(request):
 
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            # login() の前に gender を退避
             gender = request.session.get('gender')
 
             user = form.save()
@@ -51,7 +54,6 @@ def register(request):
             profile.gender = gender
             profile.save()
 
-            # ★ 男女共通でプロフィール入力へ
             return redirect('/accounts/profile/setup/')
     else:
         form = CustomUserCreationForm()
