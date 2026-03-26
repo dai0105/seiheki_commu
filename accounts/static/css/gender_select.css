@@ -1,35 +1,72 @@
+/* 全体リセット */
+body {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    font-family: "Helvetica", "Arial", sans-serif;
+}
+
+/* 中央寄せのカード */
 .gender-wrapper {
-    width: 350px;
-    margin: 80px auto;
-    padding: 30px;
+    width: 90%;
+    max-width: 380px;
+    margin: 40px auto;
+    padding: 24px;
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    font-family: sans-serif;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     text-align: center;
 }
 
+/* タイトル */
 .gender-wrapper h2 {
-    margin-bottom: 20px;
+    font-size: 22px;
+    margin-bottom: 24px;
+    color: #333;
 }
 
+/* 性別ボタン */
 .gender-btn {
     display: block;
     width: 100%;
-    padding: 15px;
-    margin-top: 15px;
-    background: #4a90e2;
-    color: white;
+    padding: 14px;
+    margin-top: 16px;
     border: none;
     border-radius: 8px;
     font-size: 18px;
+    font-weight: bold;
+    color: #fff;
     cursor: pointer;
 }
 
+/* 男性ボタン */
+.gender-btn.male {
+    background: #4a90e2;
+}
+
+/* 女性ボタン */
 .gender-btn.female {
     background: #e26aa5;
 }
 
-.gender-btn:hover {
-    opacity: 0.9;
+/* 押したとき */
+.gender-btn:active {
+    opacity: 0.85;
+}
+
+/* スマホ向け微調整 */
+@media (max-width: 480px) {
+    .gender-wrapper {
+        margin-top: 24px;
+        padding: 20px;
+    }
+
+    .gender-wrapper h2 {
+        font-size: 20px;
+    }
+
+    .gender-btn {
+        font-size: 17px;
+        padding: 13px;
+    }
 }
