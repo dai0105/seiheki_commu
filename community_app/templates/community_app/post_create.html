@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/timeline.css' %}">
+{% endblock %}
 
+{% block content %}
 <div class="post-card">
     <a href="{% url 'profile' request.user.id %}" class="back-btn">＜ プロフィールへ戻る</a>
 
@@ -18,3 +20,4 @@
         <button type="submit">投稿する</button>
     </form>
 </div>
+{% endblock %}

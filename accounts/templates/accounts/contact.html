@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/timeline.css' %}">
+{% endblock %}
+
+{% block content %}
 
 <div class="form-container">
     <h2>お問い合わせ</h2>
@@ -14,3 +18,4 @@
 
     <a href="{% url 'profile' user.id %}" class="cancel-link">戻る</a>
 </div>
+{% endblock %}

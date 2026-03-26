@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block extra_css %}
+
 <link rel="stylesheet" href="{% static 'css/timeline.css' %}">
+{% endblock %}
+
+{% block content %}
 
 <div class="delete-container">
     <div class="delete-title">アカウント削除</div>
@@ -17,3 +22,4 @@
 
     <a href="{% url 'profile' user.id %}" class="cancel-link">キャンセル</a>
 </div>
+{% endblock %}
