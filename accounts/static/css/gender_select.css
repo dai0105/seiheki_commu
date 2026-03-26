@@ -70,3 +70,14 @@ body {
         padding: 13px;
     }
 }
+
+/* ログインリンク */
+.login-link {
+    margin-top: 20px;
+}
+
+.login-link a {
+    color: #6a4fbf;
+    font-size: 15px;
+    font-weight: bold;
+}

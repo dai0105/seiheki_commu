@@ -120,3 +120,15 @@ button[type="submit"]:active {
         padding: 11px;
     }
 }
+
+/* 新規登録リンク */
+.signup-link {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.signup-link a {
+    color: #c77dff;
+    font-size: 15px;
+    font-weight: bold;
+}
