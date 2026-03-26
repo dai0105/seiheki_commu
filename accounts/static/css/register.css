@@ -1,51 +1,94 @@
+/* 全体リセット */
+body {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    font-family: "Helvetica", "Arial", sans-serif;
+}
+
+/* 中央寄せのカード */
 .register-wrapper {
-    width: 380px;
-    margin: 80px auto;
-    padding: 30px;
+    width: 90%;
+    max-width: 380px;
+    margin: 40px auto;
+    padding: 24px;
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    font-family: sans-serif;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-.register-wrapper h2 {
+/* タイトル */
+h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+    font-size: 22px;
+    color: #333;
 }
 
-.register-wrapper label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
+/* Django form の as_p に合わせた調整 */
+form p {
+    margin-bottom: 16px;
 }
 
-.register-wrapper input {
+label {
+    font-size: 14px;
+    color: #444;
+}
+
+/* 入力欄 */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
     width: 100%;
-    padding: 10px;
-    margin-top: 5px;
+    padding: 12px;
+    border: 1px solid #ddd;
     border-radius: 6px;
-    border: 1px solid #ccc;
+    font-size: 15px;
+    box-sizing: border-box;
 }
 
-.register-wrapper button {
+/* 年齢チェック */
+.age-check {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.age-check input {
+    transform: scale(1.2);
+    margin-right: 6px;
+}
+
+/* 登録ボタン */
+button[type="submit"] {
     width: 100%;
     margin-top: 20px;
     padding: 12px;
-    background: #4a90e2;
-    color: white;
+    background: #ff6b9c;
+    color: #fff;
     border: none;
     border-radius: 6px;
     font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-.age-check {
-    display: flex;
-    align-items: center;
-    gap: 6px; /* チェックと文字の間の余白 */
-    margin: 10px 0 15px;
+button[type="submit"]:active {
+    opacity: 0.85;
 }
 
-.age-check input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
+/* スマホ向け微調整 */
+@media (max-width: 480px) {
+    .register-wrapper {
+        margin-top: 24px;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    button[type="submit"] {
+        font-size: 15px;
+        padding: 11px;
+    }
 }
