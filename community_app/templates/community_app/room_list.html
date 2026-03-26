@@ -35,10 +35,24 @@
     {% endfor %}
 </div>
 
+<!-- ★ 最初の広告（カテゴリタブの下） -->
+<div class="ad-container">
+    <script type="text/javascript" src="https://j.zucks.net.zimg.jp/j?f=723047"></script>
+</div>
+
+
 
 <div class="room-list">
     {% for item in room_status %}
         {% with room=item.room %}
+
+            <!-- ★ 5個ごとに広告を挿入 -->
+            {% if not forloop.first and forloop.counter|divisibleby:5 %}
+                <div class="ad-container">
+                    <script type="text/javascript" src="https://j.zucks.net.zimg.jp/j?f=723047"></script>
+                </div>
+            {% endif %}
+
             <div class="room-card">
                 <h3>{{ room.name }}</h3>
                 <p class="room-description">{{ room.description }}</p>  <!-- ★追加 -->
