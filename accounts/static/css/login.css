@@ -1,95 +1,122 @@
+/* 全体のリセット */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica", "Arial", sans-serif;
+    background: #ffffff;
+}
+
+/* 中央寄せのラッパー */
 .login-wrapper {
-    width: 350px;
-    margin: 80px auto;
-    padding: 30px;
+    width: 90%;
+    max-width: 380px;
+    margin: 40px auto;
+    padding: 24px;
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    font-family: sans-serif;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-.login-wrapper h2 {
+/* タイトル */
+h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+    font-size: 22px;
+    color: #333;
 }
-
-.login-wrapper label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-.login-wrapper input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-}
-
-.login-wrapper button {
-    width: 100%;
-    margin-top: 20px;
-    padding: 12px;
-    background: #4a90e2;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-}
-
 
 /* エラーメッセージ */
 .error-message {
-    color: #ff4d4d;
-    background: #ffecec;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    font-size: 14px;
-}
-
-/* サブスク切れの警告ボックス */
-.expired-box {
-    background: #fff4d9;
-    border: 1px solid #ffd27f;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    text-align: left;
-    font-size: 14px;
-    color: #8a6d3b;
-}
-
-/* 再開ボタン */
-.reactivate-btn {
-    display: block;
-    margin-top: 12px;
-    padding: 10px;
-    background: #ff9f43;
-    color: white;
+    color: red;
     text-align: center;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+/* サブスク切れボックス */
+.expired-box {
+    background: #ffe6ea;
+    padding: 14px;
     border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.reactivate-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: #ff6b9c;
+    color: #fff;
+    border-radius: 6px;
     text-decoration: none;
+    font-size: 14px;
+}
+
+/* ラベル */
+label {
+    display: block;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #444;
+}
+
+/* 入力欄 */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
     font-size: 15px;
-    transition: 0.2s;
+    box-sizing: border-box;
 }
 
-.reactivate-btn:hover {
-    background: #ff8a1f;
+/* ログインボタン */
+button[type="submit"] {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background: #ff6b9c;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
+button[type="submit"]:active {
+    opacity: 0.85;
+}
+
+/* パスワード忘れリンク */
 .forgot-link {
-    margin-top: 15px;
-    text-align: right;
+    text-align: center;
+    margin-top: 14px;
 }
 
 .forgot-link a {
-    font-size: 13px;
-    color: #7aa7ff;
-    text-decoration: none;
+    font-size: 14px;
+    color: #555;
+    text-decoration: underline;
 }
 
-.forgot-link a:hover {
-    text-decoration: underline;
+/* スマホ向け微調整 */
+@media (max-width: 480px) {
+    .login-wrapper {
+        margin-top: 24px;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    button[type="submit"] {
+        font-size: 15px;
+        padding: 11px;
+    }
 }
