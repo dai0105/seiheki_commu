@@ -1,40 +1,90 @@
+/* 全体リセット */
+body {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    font-family: "Helvetica", "Arial", sans-serif;
+}
+
+/* 中央寄せのカード */
 .profile-setup-wrapper {
-    width: 420px;
-    margin: 80px auto;
-    padding: 30px;
+    width: 90%;
+    max-width: 380px;
+    margin: 40px auto;
+    padding: 24px;
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    font-family: sans-serif;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-.profile-setup-wrapper h2 {
+/* タイトル */
+h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+    font-size: 22px;
+    color: #333;
 }
 
-.profile-setup-wrapper label {
+/* エラーメッセージ */
+.error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+/* ラベル */
+label {
     display: block;
-    margin-top: 12px;
-    font-weight: bold;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #444;
 }
 
-.profile-setup-wrapper input,
-.profile-setup-wrapper select {
+/* 入力欄 */
+input[type="text"],
+select {
     width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-}
-
-.profile-setup-wrapper button {
-    width: 100%;
-    margin-top: 25px;
     padding: 12px;
-    background: #4a90e2;
-    color: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    box-sizing: border-box;
+    background: #fff;
+}
+
+/* ボタン */
+button[type="submit"] {
+    width: 100%;
+    margin-top: 24px;
+    padding: 12px;
+    background: #ff6b9c;
+    color: #fff;
     border: none;
     border-radius: 6px;
     font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button[type="submit"]:active {
+    opacity: 0.85;
+}
+
+/* スマホ向け微調整 */
+@media (max-width: 480px) {
+    .profile-setup-wrapper {
+        margin-top: 24px;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    button[type="submit"] {
+        font-size: 15px;
+        padding: 11px;
+    }
 }

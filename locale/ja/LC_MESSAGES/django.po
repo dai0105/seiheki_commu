@@ -1,0 +1,2 @@
+msgid "The password is too similar to the user’s other personal information."
+msgstr "名前やメールアドレスなど、あなたの個人情報と似たパスワードは使用できません。"
