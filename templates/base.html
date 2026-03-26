@@ -8,10 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <meta property="og:title" content="性癖コミュ - 新しいつながりを見つけよう">
+    <meta property="og:title" content="性癖コミュニティ - 新しいつながりを見つけよう">
     <meta property="og:description" content="価値観でつながる安心コミュニティ。匿名で気軽に話せる場所。">
     <meta property="og:image" content="https://seiheki-commu-1.onrender.com/static/ogp.png">
-    <meta property="og:url" content="https://seiheki-commu-1.onrender.com/">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:type" content="website">
 
     {% block extra_css %}{% endblock %}
