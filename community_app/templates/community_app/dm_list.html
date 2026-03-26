@@ -15,7 +15,18 @@
 
     <h2 class="dm-title">DM一覧</h2>
 
+    <div class="ad-container">
+        <script type="text/javascript" src="https://j.zucks.net.zimg.jp/j?f=723047"></script>
+    </div>
+
+
     {% for item in room_data %}
+
+        {% if not forloop.first and forloop.counter|divisibleby:5 %}
+                <div class="ad-container">
+                    <script type="text/javascript" src="https://j.zucks.net.zimg.jp/j?f=723047"></script>
+                </div>
+            {% endif %}
         
         <a href="{% url 'dm_detail' item.room.id %}" class="dm-card {% if item.has_new %}new-dm{% endif %}">
 
