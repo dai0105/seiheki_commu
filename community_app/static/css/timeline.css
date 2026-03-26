@@ -222,7 +222,7 @@ body {
 }
 
 .profile-edit-card {
-    background: #ffffff;
+    background: #ffe7f2;
     border: 1px solid #f7c9da;
     border-radius: 16px;
     padding: 20px;
@@ -237,7 +237,7 @@ body {
     padding: 10px;
     border-radius: 10px;
     border: 1px solid #f7c9da;
-    background: #fff0f7;
+    background: #ffffff;
     margin-top: 6px;
     margin-bottom: 12px;
 }
