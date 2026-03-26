@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/timeline.css' %}">
+{% block extra_css %}
 
+<link rel="stylesheet" href="{% static 'css/timeline.css' %}">
+{% endblock %}
+
+{% block content %}
 <a href="{% url 'room_list' %}" class="enter-btn">← コミュニティ一覧に戻る</a>
 
 <h2 class="page-title">新しい部屋を作る</h2>
@@ -25,3 +29,4 @@
         <button type="submit" class="create-btn">作成する</button>
     </form>
 </div>
+{% endblock %}
