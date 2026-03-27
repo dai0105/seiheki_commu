@@ -50,7 +50,7 @@
 let offset = 20;
 
 document.getElementById("load-more-btn")?.addEventListener("click", function() {
-    fetch(`/rooms/load_more/?offset=${offset}&category={{ selected_category }}&filter={{ filter_type }}`)
+    fetch(`/rooms/load_more/?offset=${offset}`)
         .then(response => response.json())
         .then(data => {
             document.getElementById("room-list").insertAdjacentHTML("beforeend", data.html);
