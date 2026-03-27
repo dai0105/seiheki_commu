@@ -81,14 +81,15 @@ def post_delete(request, post_id):
 
 def room_list(request):
     category_id = request.GET.get('category')
-
     filter_type = request.GET.get('filter')
 
+    # カテゴリフィルタ
     if category_id:
         rooms = Room.objects.filter(category_id=category_id)
     else:
         rooms = Room.objects.all().order_by('-created_at')
 
+    # 入室中フィルタ
     if filter_type == "joined":
         joined_room_ids = RoomMember.objects.filter(user=request.user).values_list('room_id', flat=True)
         rooms = rooms.filter(id__in=joined_room_ids)
@@ -107,14 +108,53 @@ def room_list(request):
     # ★ 追加：現在入室している部屋数（5部屋制限のため）
     current_count = RoomMember.objects.filter(user=request.user).count()
 
+    # ★ 追加：最初の20件だけ表示
+    initial_rooms = room_status[:20]
+    has_more = len(room_status) > 20
+
     return render(request, 'community_app/room_list.html', {
-        'room_status': room_status,
+        'room_status': initial_rooms,
         'categories': categories,
         'selected_category': category_id,
-        'current_count': current_count,   # ★ 追加
+        'current_count': current_count,
+        'has_more': has_more,
+        'category_id': category_id,
+        'filter_type': filter_type,
     })
 
+def load_more_rooms(request):
+    offset = int(request.GET.get("offset", 0))
+    category_id = request.GET.get("category")
+    filter_type = request.GET.get("filter")
 
+    # 元の room_list と同じロジックで取得
+    if category_id:
+        rooms = Room.objects.filter(category_id=category_id)
+    else:
+        rooms = Room.objects.all().order_by('-created_at')
+
+    if filter_type == "joined":
+        joined_room_ids = RoomMember.objects.filter(user=request.user).values_list('room_id', flat=True)
+        rooms = rooms.filter(id__in=joined_room_ids)
+
+    room_status = []
+    for room in rooms:
+        is_member = RoomMember.objects.filter(room=room, user=request.user).exists()
+        room_status.append({
+            "room": room,
+            "is_member": is_member,
+        })
+
+    next_rooms = room_status[offset:offset+20]
+    has_more = len(room_status) > offset + 20
+
+    html = render(
+        request,
+        "community_app/room_list_partial.html",
+        {"room_status": next_rooms, "offset": offset}
+    ).content.decode("utf-8")
+
+    return JsonResponse({"html": html, "has_more": has_more})
 
 def room_create(request):
     if request.method == "POST":

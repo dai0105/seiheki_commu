@@ -5,8 +5,6 @@
 <link rel="stylesheet" href="{% static 'css/timeline.css' %}">
 {% endblock %}
 
-
-
 {% block content %}
 
 <h2 class="page-title">コミュニティ部屋一覧</h2>
@@ -17,15 +15,14 @@
 
 <div class="filter-area">
     <a href="{% url 'room_list' %}"
-        class="filter-btn {% if not selected_category and not request.GET.filter %}active{% endif %}">
+        class="filter-btn {% if not selected_category and not filter_type %}active{% endif %}">
         全て
     </a>
 
     <a href="{% url 'room_list' %}?filter=joined"
-        class="filter-btn {% if request.GET.filter == 'joined' %}active{% endif %}">
+        class="filter-btn {% if filter_type == 'joined' %}active{% endif %}">
         入室中
     </a>
-
 
     {% for category in categories %}
         <a href="{% url 'room_list' %}?category={{ category.id }}"
@@ -35,38 +32,35 @@
     {% endfor %}
 </div>
 
-<!-- ★ 最初の広告（カテゴリタブの下） -->
+<!-- ★ 最初の広告 -->
 <div class="ad-container">
     <script type="text/javascript" src="https://j.zucks.net.zimg.jp/j?f=723047"></script>
 </div>
 
-
-
-<div class="room-list">
-    {% for item in room_status %}
-        {% with room=item.room %}
-
-            <!-- ★ 5個ごとに広告を挿入 -->
-            {% if not forloop.first and forloop.counter|divisibleby:5 %}
-                <div class="ad-container">
-                    <script type="text/javascript" src="https://j.zucks.net.zimg.jp/j?f=723047"></script>
-                </div>
-            {% endif %}
-
-            <div class="room-card">
-                <h3>{{ room.name }}</h3>
-                <p class="room-description">{{ room.description }}</p>  <!-- ★追加 -->
-
-                <p>カテゴリ：{{ room.category.name }}</p>
-                <p>人数：{{ room.members.count }} / {{ room.max_members }}</p>
-
-                {% if item.is_member %}
-                    <a href="{% url 'room_detail' room.id %}" class="enter-btn">入室中 → 部屋へ</a>
-                {% else %}
-                    <a href="{% url 'join_room' room.id %}" class="enter-btn">入室する</a>
-                {% endif %}
-            </div>
-        {% endwith %}
-    {% endfor %}
+<!-- ★ 最初の20件 -->
+<div id="room-list">
+    {% include "community_app/room_list_partial.html" with room_status=room_status offset=0 %}
 </div>
+
+{% if has_more %}
+<button id="load-more-btn" class="load-more-btn">もっと見る</button>
+{% endif %}
+
+<script>
+let offset = 20;
+
+document.getElementById("load-more-btn")?.addEventListener("click", function() {
+    fetch(`/rooms/load_more/?offset=${offset}&category={{ selected_category }}&filter={{ filter_type }}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("room-list").insertAdjacentHTML("beforeend", data.html);
+            offset += 20;
+
+            if (!data.has_more) {
+                document.getElementById("load-more-btn").style.display = "none";
+            }
+        });
+});
+</script>
+
 {% endblock %}
