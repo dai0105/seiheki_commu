@@ -784,7 +784,7 @@ body {
 }
 
 .load-more-btn:hover {
-    background-color: #3b59d6;
+    background-color: #f3d6e0;
     transform: translateY(-1px);
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.16);
 }

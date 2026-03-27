@@ -407,7 +407,6 @@ def dm_list(request):
         partner = room.get_partner(request.user)
         last_msg = room.messages.order_by('-created_at').first()
 
-        # 新着判定：最新メッセージが相手なら NEW
         has_new = last_msg and last_msg.sender != request.user
 
         room_data.append({
@@ -417,9 +416,48 @@ def dm_list(request):
             'has_new': has_new,
         })
 
+    # ★ 最初の20件だけ
+    initial_data = room_data[:20]
+    has_more = len(room_data) > 20
+
     return render(request, 'community_app/dm_list.html', {
-        'room_data': room_data
+        'room_data': initial_data,
+        'has_more': has_more,
     })
+
+@login_required
+def load_more_dm_list(request):
+    offset = int(request.GET.get("offset", 0))
+
+    rooms = DMRoom.objects.filter(
+        Q(user1=request.user) | Q(user2=request.user)
+    ).annotate(
+        last_msg_time=Max('messages__created_at')
+    ).order_by('-last_msg_time')
+
+    room_data = []
+    for room in rooms:
+        partner = room.get_partner(request.user)
+        last_msg = room.messages.order_by('-created_at').first()
+        has_new = last_msg and last_msg.sender != request.user
+
+        room_data.append({
+            'room': room,
+            'partner': partner,
+            'last_msg': last_msg,
+            'has_new': has_new,
+        })
+
+    next_data = room_data[offset:offset+20]
+    has_more = len(room_data) > offset + 20
+
+    html = render(
+        request,
+        "community_app/dm_list_partial.html",
+        {"room_data": next_data, "offset": offset}
+    ).content.decode("utf-8")
+
+    return JsonResponse({"html": html, "has_more": has_more})
 
 def block_user(request, user_id):
     partner = get_object_or_404(User, id=user_id)

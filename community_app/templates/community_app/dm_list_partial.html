@@ -1,0 +1,61 @@
+{% for item in room_data %}
+
+    {% if forloop.counter0|add:offset|divisibleby:5 and not forloop.first %}
+        <div class="ad-container">
+            <script type="text/javascript" src="https://j.zucks.net.zimg.jp/j?f=723047"></script>
+        </div>
+    {% endif %}
+
+    <a href="{% url 'dm_detail' item.room.id %}" class="dm-card {% if item.has_new %}new-dm{% endif %}">
+
+        <div class="dm-left">
+
+            {% if item.partner.profile.icon %}
+                <img src="{{ item.partner.profile.icon }}" class="dm-icon">
+            {% else %}
+                <div class="dm-icon default-icon">
+                    {{ item.partner.profile.nickname|first }}
+                </div>
+            {% endif %}
+
+            <div class="dm-info">
+                <p class="dm-name">
+                    {{ item.partner.profile.nickname }}
+                    {% if item.has_new %}
+                        <span class="new-badge">NEW</span>
+                    {% endif %}
+                </p>
+
+                {% if item.last_msg %}
+                    <p class="dm-latest">
+                        {% if item.last_msg.content %}
+                            {{ item.last_msg.content|truncatechars:20 }}
+                        {% else %}
+                            画像/動画が送信されました
+                        {% endif %}
+                    </p>
+                {% else %}
+                    <p class="dm-latest no-message">まだメッセージはありません</p>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <div class="dm-right">
+
+            {% if item.room.latest_message %}
+                <div class="dm-time">
+                    {{ item.room.latest_message.created_at|date:"m/d H:i" }}
+                </div>
+            {% endif %}
+
+            <form action="{% url 'block_user' item.partner.id %}" method="POST">
+                {% csrf_token %}
+                <button class="block-btn">ブロック</button>
+            </form>
+
+        </div>
+
+    </a>
+
+{% endfor %}

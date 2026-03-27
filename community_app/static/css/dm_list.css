@@ -114,3 +114,36 @@ body {
     border-top: 1px solid #f3d6e0;
     border-bottom: 1px solid #f3d6e0;
 }
+
+
+.load-more-btn {
+    display: block;
+    margin: 24px auto 40px;
+    padding: 10px 32px;
+    border-radius: 999px;
+    border: none;
+    background-color: #ffb6d9;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.load-more-btn:hover {
+    background-color: #f3d6e0;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.16);
+}
+
+.load-more-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+.load-more-btn:disabled {
+    background-color: #ccc;
+    cursor: default;
+    box-shadow: none;
+}

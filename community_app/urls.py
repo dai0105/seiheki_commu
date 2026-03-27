@@ -20,6 +20,7 @@ urlpatterns = [
     path('dm/start/<int:user_id>/', views.dm_start, name='dm_start'),
     path('dm/<int:room_id>/', views.dm_detail, name='dm_detail'),
     path('dm/', views.dm_list, name='dm_list'),
+    path("dm/load_more/", views.load_more_dm_list, name="load_more_dm_list"),
     path('block/<int:user_id>/', views.block_user, name='block_user'),
     path('qa/', views.qa_page, name='qa_page'),
 ]
