@@ -151,7 +151,7 @@ def load_more_rooms(request):
     html = render(
         request,
         "community_app/room_list_partial.html",
-        {"room_status": next_rooms, "offset": int(offset)}
+        {"room_status": next_rooms, "offset": offset}
     ).content.decode("utf-8")
 
     return JsonResponse({"html": html, "has_more": has_more})

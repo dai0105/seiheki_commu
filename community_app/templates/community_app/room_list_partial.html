@@ -1,7 +1,7 @@
 {% for item in room_status %}
     {% with room=item.room %}
 
-        {% if forloop.counter0|add:offset|divisibleby:5 %}
+        {% if forloop.counter0|add:offset|divisibleby:5 and not forloop.first %}
             <div class="ad-container">
                 <script type="text/javascript" src="https://j.zucks.net.zimg.jp/j?f=723047"></script>
             </div>
