@@ -11,6 +11,7 @@ urlpatterns = [
     path('timeline/', views.timeline, name='timeline'),
     path('post/<int:post_id>/delete/', views.post_delete, name='post_delete'),
     path('community/rooms/', views.room_list, name='room_list'),
+    path('rooms/load_more/', views.load_more_rooms, name='load_more_rooms'),
     path('community/rooms/create/', views.room_create, name='room_create'),
     path('community/rooms/<int:room_id>/', views.room_detail, name='room_detail'),
     path('rooms/<int:room_id>/join/', views.join_room, name='join_room'),
